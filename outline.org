@@ -22,6 +22,7 @@
   - Acoustic models - multilingual AM
   - Semi-supervised data/Active Learning for feature front-ends and
     AMs 
+  - Do we need to talk about flat-start? (bedk)
 
 * Babel (Brian - 15 slides)
   - Describe the Babel program as an example for development of new
