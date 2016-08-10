@@ -1,0 +1,103 @@
+\documentclass[12pt,xcolor=dvipsnames]{beamer}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\hypersetup{colorlinks,linkcolor=,urlcolor=links}
+\usepackage{hyperref}
+
+\usetheme{IS2012Tutorial}
+\input{math_definition.tex}
+
+%%%% Other commands to make presentation consistent
+\newcommand{\heading}[1]{{\color{red}\textbf{#1}}}
+\newcommand{\stress}[1]{{\color{ForestGreen}\textbf{\emph{#1}}}}
+\newcommand{\nb}[1]{{\scriptsize \emph{{\color{RoyalPurple}N.B.\ }}\color{Brown}#1}}
+\newcommand{\target}{{\color{red}target domain}}
+\newcommand{\source}{{\color{blue}source domain}}
+
+% to get references in an easy way, from one BiBTeX file
+\usepackage{bibentry}
+\def\newblock{\hskip .11em plus .33em minus .07em}
+\setbeamertemplate{frametitle continuation}{}
+
+\mode<presentation>
+
+% max figure size is 108 x 72 mm
+
+\author{Florian Metze, Samuel Thomas, Bhuvana Ramabhadran, and Brian Kingsbury}
+\title{{\color{Maroon} Pushing the frontiers of speech processing --- What does it take to tackle new languages and domains?}}
+\institute{Carnegie Mellon University and IBM}
+\date{\today}
+
+\sloppy
+
+\begin{document}
+
+\section{Title}
+
+\begin{frame}
+  \titlepage
+  % read the bibliographic information so we can put in references as
+  % desired
+  % \bibliographystyle{plain}
+  % \nobibliography{tutorial}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Florian Metze}
+  \begin{columns}[c]
+    \column{2in}
+    \begin{itemize}
+    \item Associate Research Professor at Carnegie Mellon University (LTI/SCS)
+    \item End-to-end Speech Recognition
+    \item Articulatory Features for Speech Recognition
+    \item Multi-media Analysis
+    \item \texttt{fmetze@cs.cmu.edu}
+    \end{itemize}
+    \column{2in}
+    \framebox{\includegraphics[width=2in]{Florian}}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Outline (3 hours)}
+  \begin{enumerate}
+  \item Introduction/ Scope Background
+  \item Building the Machines
+  \item Applications using the Core ASR System
+  \item Algorithmic Recipe
+  \item Lessons Learnt with Current Neural Network Technologies
+  \item Research Topics, Challenges, and New Ideas
+  \item End-to-End Systems
+  \item Virtual Machines and Tools
+  \item Conclusions
+  \end{enumerate}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Pause}
+  Let's re-convene in 15 minutes.
+\end{frame}
+
+\input{florian-body.tex}
+
+\section{Conclusions}
+
+\begin{frame}
+  \frametitle{Conclusions}
+  \begin{itemize}
+  \item It's hard.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Thank You!}
+  \begin{itemize}
+  \item Any Questions?
+  \end{itemize}
+\end{frame}
+
+\input{references.tex}
+
+\end{document}
+

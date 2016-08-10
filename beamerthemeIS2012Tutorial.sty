@@ -1,0 +1,167 @@
+% Beamer theme similar to IBM Powerpoint and Symphony templates
+%
+% Brian Kingsbury <bedk@us.ibm.com>
+% 11 December 2008
+%
+\mode<presentation>
+% Turn off presentation cruft - minimalism rocks!
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{sidebar right}{}
+
+% Use circles in lists, but clean up the base beamer implementation a bit
+
+\useinnertheme{circles}
+
+% Experiment with right-justified title page
+
+\setbeamerfont*{title}{size=\huge,family=\sffamily}
+\setbeamerfont*{author}{size=\large,family=\sffamily,series=\normalfont}
+\setbeamerfont*{institute}{size=\small,family=\sffamily,series=\normalfont}
+\setbeamerfont*{date}{size=\small,family=\sffamily}
+\setbeamerfont*{itemize/enumerate body}{size=\footnotesize}
+\setbeamerfont*{itemize/enumerate subbody}{size=\scriptsize}
+
+\setbeamertemplate{title page}
+{
+  \vbox{}
+  \vfill
+  \usebeamerfont{title}\inserttitle\par
+  \vfill
+  \usebeamerfont{author}\insertauthor\par
+  \vspace{0.3em}
+  \usebeamerfont{institute}\insertinstitute\par
+  \vfill
+}
+
+\setbeamertemplate{itemize item}
+{
+  \usebeamerfont*{item projected}%
+  \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+    \pgfpathcircle{\pgfpoint{0.75ex}{0.8ex}}{0.75ex}
+    \pgfusepath{fill}
+  \end{pgfpicture}%
+}
+
+\setbeamertemplate{itemize subitem}
+{
+  \usebeamerfont*{subitem projected}%
+  \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+    \pgfpathcircle{\pgfpoint{0.75ex}{0.70ex}}{0.60ex}
+    \pgfusepath{fill}
+  \end{pgfpicture}%
+}
+
+\setbeamertemplate{itemize subsubitem}
+{
+  \usebeamerfont*{subsubitem projected}%
+  \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+    \pgfpathcircle{\pgfpoint{0.75ex}{0.6x}}{0.5ex}
+    \pgfusepath{fill}
+  \end{pgfpicture}%
+}
+
+\setbeamertemplate{enumerate item}
+{
+  \usebeamerfont*{item projected}%
+  \usebeamercolor[bg]{item projected}%
+  \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+    \pgfpathcircle{\pgfpoint{0.75ex}{0.9ex}}{0.85ex}
+    \pgfusepath{fill}
+    \pgftext[base,x=0.75ex,y=0.2ex]{\color{fg}\insertenumlabel}
+  \end{pgfpicture}%
+}
+
+\setbeamertemplate{enumerate subitem}
+{
+  \usebeamerfont*{subitem projected}%
+  \usebeamercolor[bg]{subitem projected}%
+  \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+    \pgfpathcircle{\pgfpoint{0.75ex}{0.75ex}}{0.85ex}
+    \pgfusepath{fill}
+    \pgftext[base,x=0.75ex,y=0.05ex]{\color{fg}\insertsubenumlabel}
+  \end{pgfpicture}%
+}
+
+\setbeamertemplate{enumerate subsubitem}
+{
+  \usebeamerfont*{subsubitem projected}%
+  \usebeamercolor[bg]{subsubitem projected}%
+  \begin{pgfpicture}{-1ex}{0ex}{1ex}{2ex}
+    \pgfpathcircle{\pgfpoint{0.75ex}{0.75ex}}{0.85ex}
+    \pgfusepath{fill}
+    \pgftext[base,x=0.75ex,y=0.05ex]{\color{fg}\insertsubsubenumlabel}
+  \end{pgfpicture}%
+}
+
+% Set up headlines and footlines
+
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=3.0ex,dp=1ex,left]{palette secondary}%
+    \usebeamerfont{footline}
+    \hspace*{0.5em}
+    \insertdate
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=3.0ex,dp=1ex,right]{palette secondary}%
+      \usebeamerfont{footline}
+    \end{beamercolorbox}
+  }
+  \vskip0pt%
+}
+
+\setbeamertemplate{headline}
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=3.0ex,dp=1ex,left]{palette secondary}%
+    \usebeamerfont{footline}
+    \hspace*{0.5em}
+    Pushing the frontiers of speech processing
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=3.0ex,dp=1ex,right]{palette secondary}%
+    \usebeamerfont{footline}
+    Interspeech 2012 Tutorial
+    \hspace*{0.5em}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% IBM colors
+
+\definecolor{LoreleiTan}{rgb}{0.84,0.65,0.16}
+\definecolor{inverse}{rgb}{0.16,0.35,0.84}
+
+\setbeamercolor{section in toc}{fg=black,bg=white}
+\setbeamercolor*{palette primary}{fg=LoreleiTan,bg=white}
+%\setbeamercolor*{palette secondary}{fg=white,bg=LoreleiTan}
+\setbeamercolor*{palette secondary}{fg=white,bg=blue}
+\setbeamercolor*{palette tertiary}{bg=LoreleiTan!80!black,fg=gray!10!white}
+\setbeamercolor*{palette quaternary}{fg=LoreleiTan,bg=gray!5!white}
+
+\setbeamercolor*{itemize item}{fg=LoreleiTan,bg=white}
+\setbeamercolor*{itemize subitem}{fg=LoreleiTan!70!inverse,bg=white}
+\setbeamercolor*{itemize subsubitem}{fg=LoreleiTan!40!inverse,bg=white}
+
+\setbeamercolor*{enumerate item}{fg=LoreleiTan,bg=white}
+\setbeamercolor*{enumerate subitem}{fg=LoreleiTan!80!inverse,bg=white}
+\setbeamercolor*{enumerate subsubitem}{fg=LoreleiTan!20!inverse,bg=white}
+
+\setbeamercolor*{item projected}{bg=LoreleiTan,fg=white}
+\setbeamercolor*{subitem projected}{bg=LoreleiTan!70!inverse,fg=white}
+\setbeamercolor*{subsubitem projected}{bg=LoreleiTan!40!inverse,fg=white}
+
+\setbeamercolor{titlelike}{parent=pallette primary}
+%\setbeamercolor{frametitle}{parent=pallette primary}
+
+% New Colors
+\setbeamercolor*{olive}{fg=olive,bg=white}
+\setbeamercolor{frametitle}{parent=olive}
+
+\setbeamercolor*{separation line}{}
+\setbeamercolor*{fine separation line}{}
+
+\mode
+<all>
