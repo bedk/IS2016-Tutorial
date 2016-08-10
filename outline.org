@@ -1,0 +1,62 @@
+* Introduction (Sam - 15 slides)
+  - Proliferation of numerous applications with speech interfaces
+  - What kinds of information are available for speech signal -
+    speaker, what is spoken, environment
+  - What applications can be built to tap into these information
+    sources - ASR/LID/Speaker ID technologies
+  - This means that when these applications get ported to new domains
+    and languages, the speech interfaces also then get used in these
+    environments
+  - Limit discussion to Speech Recognition
+  - What is under the hood for speech recognition technologies?
+  - Show how each ASR module relies on transcribed data - GMM based
+    technology to current DNN based technology
+  - Categorize tutorial topics
+    A. New Languages - Building from ASR systems from scratch
+    B. New domain - Adaptation of an existing ASR system
+
+* New Languages (Sam - 25 slides)
+  - Issues and how they affect performance [amount of transcribed data
+    for AM-LM/dictionary]
+  - Features front-ends - multilingual feature front-ends
+  - Acoustic models - multilingual AM
+  - Semi-supervised data/Active Learning for feature front-ends and
+    AMs 
+
+* Babel (Brian - 15 slides)
+  - Describe the Babel program as an example for development of new
+    languages
+  - Development of graphemic systems
+  - Use of multilingual features/AM (will describe above)
+  - Use of Semi-supervised data (will describe above)
+  - Web data/LM
+  - Concrete examples of ASR development for various languages -
+    different techniques used
+
+* KWS (Brian - 25 slides) 
+  - Application of ASR systems when WER is still high
+  - KWS techniques and metrics
+  - How KWS performs for Babel languages   
+
+* New Domains (Bhuvana - 20 slides)
+  - Building systems so that they can hold up in novel conditions or
+    adapt system
+    - Multi-condition training
+    - Feature adaptation
+    - Model adaptation for GMM - Neural networks
+    - LM adaptation
+
+* Recipes (Bhuvana - 15 slides)
+  - Babel recipe - new language
+  - Aspire example - mismatch AM - multi-condition training
+  - Call-center example - mismatch AM - LM
+
+* Summary of current technologies (Bhuvana - 5 slides)
+
+* Research Topics, Challenges, and New Ideas (Florian)
+
+* End-to-End Systems (Florian)
+
+* Virtual Machines and Tools (Florian)
+
+* Conclusions (Florian)
