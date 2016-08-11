@@ -15,29 +15,57 @@
     A. New Languages - Building from ASR systems from scratch
     B. New domain - Adaptation of an existing ASR system
 
-* New Languages (Sam - 25 slides)
-  - Issues and how they affect performance [amount of transcribed data
-    for AM-LM/dictionary]
-  - Features front-ends - multilingual feature front-ends
-  - Acoustic models - multilingual AM
-  - Semi-supervised data/Active Learning for feature front-ends and
-    AMs 
-  - Do we need to talk about flat-start? (bedk)
+* New Languages (Brian)
+** Babel Program
+   - Goals
+   - Languages
 
-* Babel (Brian - 15 slides)
-  - Describe the Babel program as an example for development of new
-    languages
-  - Development of graphemic systems
-  - Use of multilingual features/AM (will describe above)
-  - Use of Semi-supervised data (will describe above)
-  - Web data/LM
-  - Concrete examples of ASR development for various languages -
-    different techniques used
+** Why KWS?
+   - Practical application of ASR systems when WER is still high
+   - KWS techniques and metrics
 
-* KWS (Brian - 25 slides) 
-  - Application of ASR systems when WER is still high
-  - KWS techniques and metrics
-  - How KWS performs for Babel languages   
+** Language characteristics and how they affect performance
+*** Is the language tonal?
+    If so, the front end needs to explicitly include some sort of
+    pitch feature or provide the same information implicitly via a
+    higher resolution spectral input and sufficiently long context
+    window.
+*** Does the language have a complex, agglutinative morphology?
+    If so, OOV rates for test data will be high, which will impact
+    performance.  Web text for the LM and vocabulary may help.
+*** What is the writing system?
+    This will affect the generation of the pronunciation lexicon.
+    Possibilities are
+    - Ideographic
+    - Alphabet
+    - Abjad
+    - Abugida
+    Ideographic languages require a character-to-pronunciation
+    lexicon, while in many cases the other writing systems may be
+    handled with simple rule-based spelling-to-sound conversion.
+*** How much transcribed data is available?
+    If there is only a little, can mitigate with
+    - multilingual feature front-ends
+    - multilingual AMs
+    - Data augmentation
+    - Semi-supervised training
+    - Active Learning?  (bedk - not sure if we want to talk about
+      this or not)
+
+** Babel recipe
+*** Graphemic models
+**** Lexicon
+**** Questions for decision tree
+
+*** Flat start
+
+*** Multilingual features
+**** Network architectures
+**** Impact on system performance
+
+*** Web data
+**** Variability across languages
+**** Impact on system performance
 
 * New Domains (Bhuvana - 20 slides)
   - Building systems so that they can hold up in novel conditions or
@@ -47,10 +75,9 @@
     - Model adaptation for GMM - Neural networks
     - LM adaptation
 
-* Recipes (Bhuvana - 15 slides)
-  - Babel recipe - new language
-  - Aspire example - mismatch AM - multi-condition training
-  - Call-center example - mismatch AM - LM
+** Recipes (Bhuvana - 15 slides)
+   - Aspire example - mismatch AM - multi-condition training
+   - Call-center example - mismatch AM - LM
 
 * Summary of current technologies (Bhuvana - 5 slides)
 
