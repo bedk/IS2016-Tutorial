@@ -18,18 +18,15 @@
 * New Languages (Brian)
 ** Babel Program
    - Goals
-   - Languages
 
 ** Why KWS?
    - Practical application of ASR systems when WER is still high
-   - KWS techniques and metrics
+   - Basic techniques
+     - WFST search (references)
+     - score normalization (reference)
+   - TWV metric:  ATWV and MTWV (reference)
 
 ** Language characteristics and how they affect performance
-*** Is the language tonal?
-    If so, the front end needs to explicitly include some sort of
-    pitch feature or provide the same information implicitly via a
-    higher resolution spectral input and sufficiently long context
-    window.
 *** Does the language have a complex, agglutinative morphology?
     If so, OOV rates for test data will be high, which will impact
     performance.  Web text for the LM and vocabulary may help.
@@ -43,14 +40,17 @@
     Ideographic languages require a character-to-pronunciation
     lexicon, while in many cases the other writing systems may be
     handled with simple rule-based spelling-to-sound conversion.
+*** Is the language tonal?
+    If so, the front end needs to explicitly include some sort of
+    pitch feature or provide the same information implicitly via a
+    higher resolution spectral input and sufficiently long context
+    window.
 *** How much transcribed data is available?
     If there is only a little, can mitigate with
     - multilingual feature front-ends
     - multilingual AMs
     - Data augmentation
     - Semi-supervised training
-    - Active Learning?  (bedk - not sure if we want to talk about
-      this or not)
 
 ** Babel recipe
 *** Graphemic models

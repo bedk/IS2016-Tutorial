@@ -1,5 +1,6 @@
 \documentclass[12pt,xcolor=dvipsnames]{beamer}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{booktabs}
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 \hypersetup{colorlinks,linkcolor=,urlcolor=links}
@@ -12,8 +13,10 @@
 \newcommand{\heading}[1]{{\color{red}\textbf{#1}}}
 \newcommand{\stress}[1]{{\color{ForestGreen}\textbf{\emph{#1}}}}
 \newcommand{\nb}[1]{{\scriptsize \emph{{\color{RoyalPurple}N.B.\ }}\color{Brown}#1}}
-\newcommand{\target}{{\color{red}target domain}}
-\newcommand{\source}{{\color{blue}source domain}}
+
+%%% For prettier tables
+\newlength{\colA}
+\newcommand{\aln}[3]{\makebox[#1][#2]{#3}}
 
 % to get references in an easy way, from one BiBTeX file
 \usepackage{bibentry}
@@ -47,12 +50,7 @@
   \begin{enumerate}
   \item Introduction
   \item Tackling a New Language
-    \begin{itemize}
-      \item Babel: Many Case Studies
-      \item Keyword Search:  Making Poor ASR Useful
-    \end{itemize}
   \item Tackling a New Domain
-  \item Recipes
   \item Lessons Learnt with Current Neural Network Technologies
   \item Research Topics, Challenges, and New Ideas
   \item End-to-End Systems
@@ -66,8 +64,6 @@
 \input{new-language.tex}
 
 \input{new-domain.tex}
-
-\input{recipes.tex}
 
 \input{florian-body.tex}
 
