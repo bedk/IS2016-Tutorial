@@ -112,10 +112,54 @@
 
 %% WFST search:  index generation (token and phonetic)
 \begin{frame}{Building an index}{1. Generate a lattice for each segment in the collection.}
-  
+  \begin{center}
+    \includegraphics[width=36mm]{figures/lattice}
+  \end{center}
+  \begin{overlayarea}{\textwidth}{24mm}
+    \begin{columns}[t]
+      \column{54mm}
+      \onslide<1>{
+        \centerline{\bf Lattice}
+        \begin{description}
+        \item[Nodes] times
+        \item[Edges] words (or phones) and posterior probabilities
+        \end{description}
+      }
+      \column{54mm}
+      \onslide<2>{
+        \centerline{\bf Transducer}
+        \begin{description}
+        \item[Inputs] words (or phones)
+        \item[Outputs] times
+        \item[Costs] negative log-posteriors
+        \end{description}
+      }
+    \end{columns}
+  \end{overlayarea}
+\end{frame}
+
+\begin{frame}{Building an index}{2. Produce the factor automaton for each segment.}
+  \begin{center}
+    \includegraphics[width=36mm]{figures/factor}
+    \end{center}
+  \vfill
+  Added edges have $\epsilon$ inputs, $\epsilon$ outputs, and no costs.
+\end{frame}
+
+\begin{frame}{Building an index}{3. Connect all the factor automata in parallel.}
+  \begin{center}
+    \includegraphics[width=66mm]{figures/index}
+    \end{center}
+  \vfill
+  Added edges from start have $\epsilon$ inputs, segment ID outputs, and no costs.
+  Added edges to end have $\epsilon$ inputs, $\epsilon$ outputs, and no costs.
 \end{frame}
 
 %% WFST search:  query generation / search via composition
+%% 1. Query -> phone FSA
+%% 2. Composition with confusability model and pruning
+%% 3. (Optional) Project back to words
+%% 4. Search is then simple composition with the index
 
 %% TWV metric and its quirks
 
