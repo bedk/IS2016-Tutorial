@@ -2,6 +2,7 @@
 \usepackage{amsmath,amssymb,amsfonts}
 \usepackage{booktabs}
 \usepackage{lmodern}
+
 \usepackage[T1]{fontenc}
 \hypersetup{colorlinks,linkcolor=,urlcolor=links}
 \usepackage{hyperref}
@@ -24,14 +25,19 @@
 \usepackage{bibentry}
 \def\newblock{\hskip .11em plus .33em minus .07em}
 \setbeamertemplate{frametitle continuation}{}
+\setbeamertemplate{bibliography item}{\insertbiblabel}
 
+\usepackage[contents={DRAFT},scale=5]{background}
+\setbeamertemplate{background}{\BgMaterial}
+
+%\mode<presentation>{\usebackgroundtemplate{\includegraphics[width=\paperwidth]{figures/draft.png}}}
 \mode<presentation>
 
 % max figure size is 108 x 72 mm
 
 \author{Florian Metze, Samuel Thomas, \\
   Bhuvana Ramabhadran, and Brian Kingsbury}
-\title{{\color{Maroon} Pushing the frontiers of speech processing --- What does it take to tackle new languages and domains?}}
+\title{{\color{Maroon} Pushing the frontiers of speech processing --- What does it take to tackle new languages and domains? [Working Draft]}}
 \institute{Carnegie Mellon University and IBM}
 \date{\today}
 
@@ -61,28 +67,27 @@
   \end{enumerate}
 \end{frame}
 
+\section{Introduction}
 \input{introduction.tex}
 
+\section{New Languages}
 \input{new-language.tex}
 
+\section{New Domains}
 \input{new-domain.tex}
 
 \input{florian-body.tex}
 
 \section{Conclusions}
-
 \begin{frame}
   \frametitle{Conclusions}
-  \begin{itemize}
-  \item It's hard.
-  \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Thank You!}
-  \begin{itemize}
-  \item Any Questions?
-  \end{itemize}
+  \begin{center}
+    {\color{Maroon}\Huge Any Questions?}
+  \end{center}
 \end{frame}
 
 \input{references.tex}

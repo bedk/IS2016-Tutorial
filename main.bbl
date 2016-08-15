@@ -1,0 +1,128 @@
+\begin{thebibliography}{10}
+
+\bibitem{quesst:icassp2015}
+Xavier Anguera, Luis~Javier Rodr{\'i}guez-Fuentes, Andi Buzo, Florian Metze,
+  Igor Sz\"oke, and Mikel Pe{\~n}agarikano.
+\newblock {QUESST} 2014: Evaluating query-by-example speech search in a
+  zero-resource setting with real-life queries.
+\newblock In {\em Proc. ICASSP}, Brisbane; Australia, April 2015. IEEE.
+
+\bibitem{shared:is2016}
+Rebecca Bates, Eric Fosler-Lussier, Florian Metze, Martha Larson, Gina-Anne
+  Levow, and Emily~Mower Provost.
+\newblock Experiences with shared resources for research and education in
+  speech and language processing.
+\newblock In {\em Proc. INTERSPEECH}, San Francisco, CA; U.S.A., September
+  2016. ISCA.
+\newblock Accepted.
+
+\bibitem{w4a:2016}
+Yashesh Gaur, Walter~S. Lasecki, Florian Metze, and Jeffrey~P. Bigham.
+\newblock The effects of automatic speech recognition quality on human
+  transcription latency.
+\newblock In {\em Proc. Web for All (W4A)}, Montreal; Canada, April 2016.
+\newblock Best Paper.
+
+\bibitem{yash:is2016}
+Yashesh Gaur, Florian Metze, and Jeffrey~P. Bigham.
+\newblock Manipulating word lattices to incorporate human corrections.
+\newblock In {\em Proc. INTERSPEECH}, San Francisco, CA; U.S.A., September
+  2016. ISCA.
+\newblock Accepted.
+
+\bibitem{yashesh:is2015}
+Yashesh Gaur, Florian Metze, Yajie Miao, and Jeffrey~P. Bigham.
+\newblock Using keyword spotting to help humans correct captioning faster.
+\newblock In {\em Proc. INTERSPEECH}, Dresden, Germany, September 2015. ISCA.
+
+\bibitem{metze:is2015}
+Florian Metze, Eric Riebling, Eric Fosler-Lussier, Andrew Plummer, and Rebecca
+  Bates.
+\newblock The speech recognition virtual kitchen turns one.
+\newblock In {\em Proc. INTERSPEECH}, Dresden, Germany, September 2015. ISCA.
+
+\bibitem{vms:is2016}
+Florian Metze, Eric Riebling, Anne~S. Warlaumont, and Elike Bergelson.
+\newblock Virtual machines and containers as a platform for experimentation.
+\newblock In {\em Proc. INTERSPEECH}, San Francisco, CA; U.S.A., September
+  2016. ISCA.
+\newblock Accepted.
+
+\bibitem{eesen}
+Yajie {Miao}, Mohammad {Gowayyed}, and Florian {Metze}.
+\newblock {{EESEN:} End-to-End Speech Recognition using Deep RNN Models and
+  WFST-based Decoding}.
+\newblock In {\em Proc. Automatic Speech Recognition and Understanding Workshop
+  (ASRU)}, Scottsdale, AZ; U.S.A., December 2015. IEEE.
+\newblock https://github.com/srvk/eesen.
+
+\bibitem{eesen-icassp}
+Yajie Miao, Mohammad Gowayyed, Florian Metze, Xingyu Na, Tom Ko, and Alex
+  Waibel.
+\newblock An empirical exploration of {CTC} acoustic models.
+\newblock In {\em Proc. ICASSP}, Shanghai; China, March 2016. IEEE.
+
+\bibitem{yajie-robust:is2015}
+Yajie Miao and Florian Metze.
+\newblock Distance-aware {DNNs} for robust speech recognition.
+\newblock In {\em Proc. INTERSPEECH}, Dresden, Germany, September 2015. ISCA.
+
+\bibitem{yajie-lstm:is2015}
+Yajie Miao and Florian Metze.
+\newblock On speaker adaptation of long short-term memory recurrent neural
+  networks.
+\newblock In {\em Proc. INTERSPEECH}, Dresden, Germany, September 2015. ISCA.
+
+\bibitem{e2echapter}
+Yajie Miao and Florian Metze.
+\newblock {\em New Era for Robust Speech Recognition -- Exploiting Deep
+  Learning}, volume~1, chapter End-to-End Architectures for Speech Recognition.
+\newblock Springer, 2016.
+\newblock To appear.
+
+\bibitem{miao:is2016}
+Yajie Miao and Florian Metze.
+\newblock Open-domain audio-visual speech recognition: A deep learning
+  approach.
+\newblock In {\em Proc. INTERSPEECH}, San Francisco, CA; U.S.A., September
+  2016. ISCA.
+\newblock Accepted.
+
+\bibitem{yajie:taslp2015}
+Yajie Miao, Hao Zhang, and Florian Metze.
+\newblock Speaker adaptive training of deep neural network acoustic models
+  using i-vectors.
+\newblock {\em IEEE/ACM Transactions on Audio, Speech and Language Processing},
+  23(11):1938--1949, November 2015.
+
+\bibitem{icmr2016}
+Yun Wang and Florian Metze.
+\newblock Recurrent support vector machines for audio-based multimedia event
+  detection.
+\newblock In {\em Proc. ICMR}, New York, NY; U.S.A., June 2016. ACM.
+
+\bibitem{wang2016icassp}
+Yun Wang, Leonardo Neves, and Florian Metze.
+\newblock Audio-based multimedia event detection using deep recurrent neural
+  networks.
+\newblock In {\em Proc. ICASSP}, Shanghai; China, March 2016. IEEE.
+
+\bibitem{dnnbook}
+Shinji Watanabe, Marc Delcroix, Florian Metze, and John~R. Hershey, editors.
+\newblock {\em New Era for Robust Speech Recognition -- Exploiting Deep
+  Learning}, volume~1.
+\newblock Springer, 2016.
+\newblock To appear.
+
+\bibitem{trecvid:2015}
+Shoou-I Yu, Lu~Jiang, Zhongwen Xu, Zhenzhong Lan, Shicheng Xu, Xiaojun Chang,
+  Xuanchong Li, Zexi Mao, Chuang Gan, Yajie Miao, Xingzhong Du, Yang Cai, Lara
+  Martin, Nikolas Wolfe, Anurag Kumar, Huan Li, Ming Lin, Zhigang Ma, Yi~Yang,
+  Deyu Meng, Shiguang Shan, Pinar~Duygulu Sahin, Susanne Burger, Florian Metze,
+  Rita Singh, Bhiksha Raj, Teruko Mitamura, Richard Stern, Alexander Hauptmann,
+  Zhiyong Cheng, Jialie Shen, Xingzhong Du, and Xiaofang Zhou.
+\newblock Cmu informedia@trecvid 2015: Med/ sin/ lnk/ sed.
+\newblock In {\em Proc. TrecVID}, Gaithersburg, MD; U.S.A., December 2015.
+  NIST.
+
+\end{thebibliography}
