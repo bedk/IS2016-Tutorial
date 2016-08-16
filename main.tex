@@ -27,10 +27,14 @@
 \setbeamertemplate{frametitle continuation}{}
 \setbeamertemplate{bibliography item}{\insertbiblabel}
 
-\usepackage[contents={DRAFT},scale=5]{background}
-\setbeamertemplate{background}{\BgMaterial}
+% \usepackage[contents={DRAFT},scale=5]{background}
+% \setbeamertemplate{background}{\BgMaterial}
 
-%\mode<presentation>{\usebackgroundtemplate{\includegraphics[width=\paperwidth]{figures/draft.png}}}
+\usepackage{draftwatermark}
+\SetWatermarkText{DRAFT}
+\SetWatermarkScale{0.4}
+\setbeamercolor{background canvas}{bg=}%transparent canvas
+
 \mode<presentation>
 
 % max figure size is 108 x 72 mm
@@ -93,4 +97,3 @@
 \input{references.tex}
 
 \end{document}
-
