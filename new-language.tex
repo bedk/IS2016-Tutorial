@@ -226,13 +226,87 @@
   Added edges to end have $\epsilon$ inputs, $\epsilon$ outputs, and no costs.
 \end{frame}
 
-%% WFST search:  query generation / search via composition
-%% 1. Query -> phone FSA
-%% 2. Composition with confusability model and pruning
-%% 3. (Optional) Project back to words
-%% 4. Search is then simple composition with the index
+\begin{frame}{Building a query}{}
+  In-vocabulary queries are simple:
+  \begin{enumerate}
+  \item use a word-based WFST index, and
+  \item represent queries as word-level linear-chain WFSAs.
+  \end{enumerate}
+  \vfill
+  Queries containing \alert{out-of-vocabulary} words are more challenging.
+\end{frame}
 
-%% TWV metric and its quirks
+\begin{frame}{Handling out-of-vocabulary queries}{}
+  \begin{enumerate}
+  \item represent queries as phone-level linear-chain WFSAs,
+  \item compose the WFSAs with a WFST \alert{confusability} model,
+  \item prune the resulting WFSAs, and
+  \item {\bf if a word-based index is used}, compose the query WFSAs
+    with a WFST that maps phone sequences back to words.
+  \end{enumerate}
+  \vfill
+  The confusability model is created by running speech recognition on
+  the training data and counting co-occurrences of reference and
+  hypothesized phones.
+  \vfill
+  \nb{This is a form of query expansion, which is well
+    studied in the information retrieval literature.}
+\end{frame}
+
+\begin{frame}{How do we measure keyword search performance?}
+  {Actual Term-Weighted Value (ATWV)}
+  \begin{equation*}
+    \text{ATWV}(\theta) = \frac{1}{N}\sum_{q}
+    \left[
+      \frac{N_{\text{hit}}(q;\theta)}{N_{\text{true}}(q)} -
+      \beta \frac{N_{\text{FA}}(q;\theta)}{T - N_{\text{true}}(q)}
+      \right]
+  \end{equation*}
+  \begin{itemize}
+  \item There are $N$ test queries indexed by $q$,
+  \item $\theta$ is a decision threshold,
+  \item $N_{\text{hit}}(q;\theta)$ is the number of correct detections and
+  \item $N_{\text{FA}}(q;\theta)$ is the number of false alarms for
+    query $q$ at decision threshold $\theta$, 
+  \item $N_{\text{true}}(q)$ is the number of occurrences of query $q$
+    in the test audio,
+  \item $T$ is the duration of the test audio in seconds, and
+  \item $\beta = 999.9$ is a weight on the penalty for false alarms.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Breaking it down}{}
+  \begin{overlayarea}{\textwidth}{60mm}
+  \only<1>{
+  \begin{equation*}
+    \text{ATWV}(\theta) = \frac{1}{N}\sum_{q}
+    \left[
+      {\color{red}\frac{N_{\text{hit}}(q;\theta)}{N_{\text{true}}(q)}} -
+      \beta \frac{N_{\text{FA}}(q;\theta)}{T - N_{\text{true}}(q)}
+      \right]
+  \end{equation*}
+  }
+  \only<2>{
+  \begin{equation*}
+    \text{ATWV}(\theta) = \frac{1}{N}\sum_{q}
+    \left[
+      \frac{N_{\text{hit}}(q;\theta)}{N_{\text{true}}(q)} -
+      {\color{red}\beta \frac{N_{\text{FA}}(q;\theta)}{T - N_{\text{true}}(q)}}
+      \right]
+  \end{equation*}
+  }
+  \vspace*{12mm}
+  \begin{itemize}
+  \item<1-> Hits earn a reward of $\frac{1}{N \cdot N_{\text{true}}(q)}$, so
+    rare terms are more valuable.
+  \item<2-> False alarms incur a constant loss of approximately
+    $\frac{\beta}{N \cdot T}$ (because $T \gg N_{\text{true}}(q)$ for all $q$).
+  \end{itemize}
+  \end{overlayarea}
+  \vfill
+  \nb{Score normalization is important under the ATWV metric.  For
+    more details on this issue, please see \cite{Wang2014}.}
+\end{frame}
 
 %% What Language Characteristics Matter?
 %% Morphology and vocabulary growth
