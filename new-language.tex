@@ -276,7 +276,7 @@
 \end{frame}
 
 \begin{frame}{Breaking it down}{}
-  \begin{overlayarea}{\textwidth}{60mm}
+  \begin{overlayarea}{\textwidth}{56mm}
   \only<1>{
   \begin{equation*}
     \text{ATWV}(\theta) = \frac{1}{N}\sum_{q}
@@ -295,12 +295,24 @@
       \right]
   \end{equation*}
   }
-  \vspace*{12mm}
+  \only<3>{
+  \begin{equation*}
+    \text{ATWV}(\theta) = \frac{1}{N}\sum_{q}
+    \left[
+      \frac{N_{\text{hit}}(q;\theta)}{N_{\text{true}}(q)} -
+      \beta \frac{N_{\text{FA}}(q;\theta)}{T - N_{\text{true}}(q)}
+      \right]
+  \end{equation*}
+  }
+  \vspace*{8mm}
   \begin{itemize}
   \item<1-> Hits earn a reward of $\frac{1}{N \cdot N_{\text{true}}(q)}$, so
     rare terms are more valuable.
   \item<2-> False alarms incur a constant loss of approximately
     $\frac{\beta}{N \cdot T}$ (because $T \gg N_{\text{true}}(q)$ for all $q$).
+  \item<3-> Perfect performance scores $\text{ATWV} = 1.0$, while
+    empty output scores $\text{ATWV} = 0.0$.  $\text{ATWV} < 0.0$
+    means you have too many false alarms!
   \end{itemize}
   \end{overlayarea}
   \vfill
