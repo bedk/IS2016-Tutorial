@@ -110,7 +110,7 @@
     \alert{unreliable} speech recognition.
 \end{frame}
 
-\begin{frame}{Weighted Finite-State Acceptors and Transducers}{}
+\begin{frame}{Weighted Finite-State Acceptors}{}
   A \alert{weighted finite-state acceptor} compactly represents a set
   of strings, with a score assigned to each string.
   \vfill
@@ -119,7 +119,7 @@
   \item[states] some of which are start states, end states, or both;
     and
   \item[edges] between states, labeled with symbols from a finite
-    alphabet and costs.
+    alphabet and scores.
   \end{description}
 \end{frame}
 
@@ -128,11 +128,58 @@
     \includegraphics[width=72mm]{figures/WFSA}
   \end{center}
   \vfill
-  Represents {\tt a?b*c} and the cost of each string is its length.
+  Represents {\tt a?b*c} and the score of each string is its length.
 \end{frame}
 
-%% \begin{frame}{}{}
-%% \end{frame}
+\begin{frame}{Weighted Finite-State Transducers}{}
+  A \alert{weighted finite-state transducer} compactly represents a
+  relation between two sets of strings, with a score assigned to each
+  output string.
+  \vfill
+  Formally, a WFST comprises
+  \begin{description}
+  \item[states] some of which are start states, end states, or both;
+    and
+  \item[edges] between states, labeled with input symbols from a
+    finite alphabet, output samples from a (potentially different)
+    finite alphabet, and scores.
+  \end{description}
+\end{frame}
+
+\begin{frame}{An Example}{}
+  \begin{center}
+    \includegraphics[width=72mm]{figures/WFST}
+  \end{center}
+  \vfill
+  Maps strings in {\tt a?b*c} to {\tt a?c} by deleting {\tt b} symbols
+  and the score of each string the change in its length.
+\end{frame}
+
+\begin{frame}{Composition}{}
+  \begin{center}
+    \includegraphics[width=96mm]{figures/Composition}
+  \end{center}
+  \vfill
+  Given WFSA $\mathcal{S}$ and WFST $\mathcal{T}$, their composition
+  $\mathcal{T} \circ \mathcal{S}$ is a WFSA that represents the set of
+  strings (and corresponding scores) obtained by applying
+  $\mathcal{T}$ to the set of strings represented by $\mathcal{S}$.
+\end{frame}
+
+\begin{frame}{Roadmap for WFST-based keyword search}{}
+  \begin{enumerate}
+  \item Form a WFST index representing a relation between
+    \begin{description}
+      \item[inputs] all high-probability strings of words or phones in
+        the collection,
+      \item[outputs] times of occurrence of the words or phones, and
+      \item[scores] probabilities of the strings;
+    \end{description}
+    \item Form a WFSA representing a query; then
+    \item \alert{compose} the query WFSA with the index WFST to
+      perform the search.
+  \end{enumerate}
+\end{frame}
 
 %% WFST search:  index generation (token and phonetic)
 \begin{frame}{Building an index}{1. Generate a lattice for each segment in the collection.}
@@ -155,7 +202,7 @@
         \begin{description}
         \item[Inputs] words (or phones)
         \item[Outputs] times
-        \item[Costs] negative log-posteriors
+        \item[Scores] negative log-posteriors
         \end{description}
       }
     \end{columns}
