@@ -110,7 +110,29 @@
     \alert{unreliable} speech recognition.
 \end{frame}
 
-%% TODO - one slide on WFSTs
+\begin{frame}{Weighted Finite-State Acceptors and Transducers}{}
+  A \alert{weighted finite-state acceptor} compactly represents a set
+  of strings, with a score assigned to each string.
+  \vfill
+  Formally, a WFSA comprises
+  \begin{description}
+  \item[states] some of which are start states, end states, or both;
+    and
+  \item[edges] between states, labeled with symbols from a finite
+    alphabet and costs.
+  \end{description}
+\end{frame}
+
+\begin{frame}{An Example}{}
+  \begin{center}
+    \includegraphics[width=72mm]{figures/WFSA}
+  \end{center}
+  \vfill
+  Represents {\tt a?b*c} and the cost of each string is its length.
+\end{frame}
+
+%% \begin{frame}{}{}
+%% \end{frame}
 
 %% WFST search:  index generation (token and phonetic)
 \begin{frame}{Building an index}{1. Generate a lattice for each segment in the collection.}
