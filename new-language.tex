@@ -9,12 +9,6 @@
   \item IARPA Babel
   \item Audio Keyword Search
   \item What Language Characteristics Matter?
-    \begin{itemize}
-    \item Morphology and vocabulary growth
-    \item Writing system
-    \item Tonal languages
-    \item Amount of available training data
-    \end{itemize}
   \item A Recipe for a New Language
     \begin{itemize}
     \item Pronunciations
@@ -33,15 +27,14 @@
 \end{frame}
 
 \begin{frame}{Rapid Development}{Time allowed for surprise language model building}
-  \begin{center}
-    \begin{tabular}{@{}cl@{}} \toprule
-      {\bf Period} & \multicolumn{1}{c}{\bf Time} \\ \midrule
-      1 & 4 weeks \\
-      2 & 3 weeks \\
-      3 & 2 weeks \\
-      4 & 1 week  \\ \bottomrule
-    \end{tabular}
-  \end{center}
+  \centering
+  \begin{tabular}{@{}cl@{}} \toprule
+    {\bf Period} & \multicolumn{1}{c}{\bf Time} \\ \midrule
+    1 & 4 weeks \\
+    2 & 3 weeks \\
+    3 & 2 weeks \\
+    4 & 1 week  \\ \bottomrule
+  \end{tabular}
 \end{frame}
 
 \begin{frame}{The IARPA Babel Program}{}
@@ -53,17 +46,17 @@
 
 \begin{frame}{Babel Languages}{}
   \begin{center}
-    \begin{tabular}{@{}llll@{}} \toprule
-      \multicolumn{1}{c}{\bf Period 1} & \multicolumn{1}{c}{\bf Period 2} & \multicolumn{1}{c}{\bf Period 3} & \multicolumn{1}{c}{\bf Period 4} \\ \midrule
-      Cantonese  & Assamese       & Kurmanji Kurdish & Pashto \\
-      Pashto     & Bengali        & Tok Pisin        & Guaran\'{i} \\
-      Turkish    & Haitian Creole & Cebuano          & Igbo \\
-      Tagalog    & Lao            & Kazakh           & Amharic \\
-      Vietnamese & Zulu           & Telugu           & Mongolian \\
-                 & Tamil          & Lithuanian       & Javanese \\
-                 &                & Swahili          & Dholuo \\
-                 &                &                  & Georgian \\ \bottomrule
-    \end{tabular}
+  \begin{tabular}{@{}llll@{}} \toprule
+    \multicolumn{1}{c}{\bf Period 1} & \multicolumn{1}{c}{\bf Period 2} & \multicolumn{1}{c}{\bf Period 3} & \multicolumn{1}{c}{\bf Period 4} \\ \midrule
+    Cantonese  & Assamese       & Kurmanji Kurdish & Pashto \\
+    Pashto     & Bengali        & Tok Pisin        & Guaran\'{i} \\
+    Turkish    & Haitian Creole & Cebuano          & Igbo \\
+    Tagalog    & Lao            & Kazakh           & Amharic \\
+    Vietnamese & Zulu           & Telugu           & Mongolian \\
+               & Tamil          & Lithuanian       & Javanese \\
+               &                & Swahili          & Dholuo \\
+               &                &                  & Georgian \\ \bottomrule
+  \end{tabular}
   \end{center}
   \vfill
   \nb{These will be available from the LDC at \$US 25.00 per language for non-members.}
@@ -104,9 +97,9 @@
     \item a word or short phrase and
     \item a collection of speech data,
     \end{itemize}
-    \alert{where} does it occur, and \alert{how confident} are you?
+    does it occur, and if so where does it occur, and how confident are you?
     \vfill
-    We can build \alert{practical} keyword search from
+    We can build practical keyword search from
     \alert{unreliable} speech recognition.
 \end{frame}
 
@@ -320,10 +313,184 @@
     more details on this issue, please see \cite{Wang2014}.}
 \end{frame}
 
-%% What Language Characteristics Matter?
+\begin{frame}{Babel Languages}{}
+  \begin{center}
+    \begin{tabular}{@{}llll@{}} \toprule
+      \multicolumn{1}{c}{\bf Period 1} & \multicolumn{1}{c}{\bf Period 2} & \multicolumn{1}{c}{\bf Period 3} & \multicolumn{1}{c}{\bf Period 4} \\ \midrule
+      Cantonese  & Assamese       & Kurmanji Kurdish & Pashto \\
+      Pashto     & Bengali        & Tok Pisin        & Guaran\'{i} \\
+      Turkish    & Haitian Creole & Cebuano          & Igbo \\
+      Tagalog    & Lao            & Kazakh           & Amharic \\
+      Vietnamese & Zulu           & Telugu           & Mongolian \\
+                 & Tamil          & Lithuanian       & Javanese \\
+                 &                & Swahili          & Dholuo \\
+                 &                &                  & Georgian \\ \bottomrule
+    \end{tabular}
+  \end{center}
+\end{frame}
+
+\begin{frame}{What language characteristics matter?}{}
+  \begin{enumerate}
+  \item Morphology
+  \item Writing system
+  \item Tonal languages
+  \item Amount of available training data
+  \end{enumerate}
+\end{frame}
+
 %% Morphology and vocabulary growth
-%% Writing system
+\begin{frame}{Morphology}{}
+  The morphology of a language refers to the structure of its words.
+  Specifically, are words atomic, or are they composed from meaningful
+  parts?
+  \vfill
+  {\color{DarkerBlue}\bf English example} \\
+  re+ +do+ +er --- one who is performing some action again
+  \vfill
+  Languages with \alert{agglutinative} morphology have large
+  inventories of words formed by the composition of smaller units
+  (morphs).
+  \vfill
+  One way to characterize this is through vocabulary growth.
+\end{frame}
+
+\begin{frame}{Vocabulary Growth for Babel Languages}{}
+  \begin{center}
+    \includegraphics[width=108mm]{figures/vocGrowth}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Mitigating Rapid Vocabulary Growth}{}
+  Out-of-vocabulary words are more likely to occur in test data for
+  languages with rapid vocabulary growth, which will degrade speech
+  recognition and keyword search performance.
+  \vfill
+  Two ways to reduce the impact:
+  \begin{description}[morph models]
+    \item[morph models] base the vocabulary on morphs instead of
+      words, and
+    \item[web text] expand the vocabulary by collecting text from the
+      web.
+  \end{description}
+\end{frame}
+
+\begin{frame}{Morph Models}{}
+  Recipe:
+  \begin{enumerate}
+  \item Segment the training text into morph-like units using
+    Morfessor~\cite{Morfessor} or some other tool.
+  \item Generate a pronunciation lexicon for the morphs.
+  \item Train a language model on the segmented training text.
+  \end{enumerate}
+  \vfill
+  Task-specific considerations:
+  \begin{description}
+  \item[ASR]
+    \begin{itemize}
+    \item Recomposing morphs into words is challenging.
+    \end{itemize}
+  \item[KWS]
+    \begin{itemize}
+      \item Need to decompose queries into morphs.
+      \item Best results obtained by doing word and morph search, and
+        fusing the results.
+    \end{itemize}
+  \end{description}
+\end{frame}
+
+\begin{frame}{Keyword Search Results with Morph Models}{}
+  \begin{columns}[c]
+    \column{68mm}
+    \centering
+    \begin{tabular}{@{}lcc@{}} \toprule
+      & {\bf Word} & {\bf Word+Morph} \\
+      {\bf Language} & {\bf MTWV} & {\bf MTWV} \\ \midrule
+      Zulu     & 0.1817 & 0.2305 \\
+      Assamese & 0.2643 & 0.2797 \\ \bottomrule
+    \end{tabular}
+    \column{40mm}
+    \centering{\includegraphics[width=40mm]{figures/vocGrowthThumb}}
+  \end{columns}
+  \vfill
+  \nb{Maximum Term-Weighted Value (MTWV) is ATWV with an oracle
+    decision threshold.}
+\end{frame}
+
+\begin{frame}{Web Text}{}
+  General considerations:
+  \begin{itemize}
+  \item How much web presence does the language have?
+    \begin{itemize}
+    \item Swahili: plenty
+    \item Dholuo: sparse
+    \end{itemize}
+  \item How easy is it to generate queries returning the target language?
+    \begin{itemize}
+    \item Amharic has its own Unicode range, so it is easy.
+    \item Tagalog contains many English and Spanish loanwords, so it
+      is difficult.
+    \end{itemize}
+  \item Normalization is a must!
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Web Text}{}
+  Task-specific considerations:
+  \begin{description}
+  \item[ASR] Improvements may be small due to genre mismatch (LM is important).
+  \item[KWS] Better vocabulary coverage improves performance (LM is not important).
+  \end{description}
+\end{frame}
+
+\begin{frame}{Impact of Web Text}{}
+  \centering
+  \begin{tabular}{@{}lcd{5.1}d{3.1}cc@{}} \toprule
+    & & \multicolumn{1}{c}{\bf Train} & \multicolumn{1}{c}{\bf Voc.} &               &            \\
+    {\bf Language} & {\bf Web?} & \multicolumn{1}{c}{\bf size} & \multicolumn{1}{c}{\bf size} & {\bf \% WER} & {\bf MTWV} \\ \midrule
+
+
+    Igbo        & N &    45.3 & 16.5 & 66.5 & 0.2387 \\
+                & Y &   707.  & 19.3 & 66.5 & 0.2389 \\ \midrule
+    Guaran\'{i} & N &    46.8 & 26.3 & 53.5 & 0.4562 \\
+                & Y &   437.  & 36.8 & 53.5 & 0.4665 \\ \midrule
+    Mongolian   & N &    51.2 & 23.6 & 61.1 & 0.3497 \\
+                & Y & 55300.  & 217. & 60.4 & 0.3849 \\ \bottomrule
+  \end{tabular}
+  \vfill
+  \raggedright
+  Word counts are in thousands.
+\end{frame}
+
+%% \begin{frame}{Impact of Web Text}{}
+%%   \centering
+%%   \begin{tabular}{@{}lcd{3.1}d{2.1}cc@{}} \toprule
+%%     & & \multicolumn{1}{c}{\bf Voc.}     & \multicolumn{1}{c}{\bf \% OOV}  &              &            \\
+%%     {\bf Language} & {\bf Web?} & \multicolumn{1}{c}{\bf size (K)} & \multicolumn{1}{c}{\bf queries} & {\bf \% WER} & {\bf MTWV} \\ \midrule
+%%     Igbo        & N & 16.5 & 11.9 & 66.5 & 0.2387 \\
+%%                 & Y & 19.3 & 11.6 & 66.5 & 0.2389 \\ \midrule
+%%     Guaran\'{i} & N & 26.3 & 13.8 & 53.5 & 0.4562 \\
+%%                 & Y & 36.8 & 12.9 & 53.5 & 0.4665 \\ \midrule
+%%     Mongolian   & N & 23.6 & 12.2 & 61.1 & 0.3497 \\
+%%                 & Y & 217. &  3.8 & 60.4 & 0.3849 \\ \bottomrule
+%%   \end{tabular}
+%% \end{frame}
+
+%% Writing system ... only matters if you don't have a phonetic
+%% pronunciation lexicon
+%% - Ideographic
+%% - Alphabet
+%% - Abjad
+%% - Abugida
+%% Ideographic languages require a character-to-pronunciation
+%% lexicon, while in many cases the other writing systems may be
+%% handled with simple rule-based spelling-to-sound conversion.
+
 %% Tonal languages
+%% If so, must represent pitch
+%% explicit - e.g. FFV features
+%% implicit - e.g. high-resolution Mel spectral features in NN
+%% give results for Lao
+
 %% Amount of available training data
 %%   multilingual feature front-ends
 %%   multilingual AMs

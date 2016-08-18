@@ -1,5 +1,6 @@
 \documentclass[12pt,xcolor=dvipsnames]{beamer}
 \usepackage{amsmath,amssymb,amsfonts}
+\usepackage{dcolumn}
 \usepackage{booktabs}
 \usepackage{lmodern}
 
@@ -20,6 +21,7 @@
 %%% For prettier tables
 \newlength{\colA}
 \newcommand{\aln}[3]{\makebox[#1][#2]{#3}}
+\newcolumntype{d}[1]{D{.}{.}{#1}}
 
 % to get references in an easy way, from one BiBTeX file
 \usepackage{bibentry}
