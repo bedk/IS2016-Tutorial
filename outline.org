@@ -9,6 +9,10 @@
     environments
   - Limit discussion to Speech Recognition
   - What is under the hood for speech recognition technologies?
+  - Be sure to cover the lexicon, explaining phonetic lexicons,
+    graphemic lexicons, and "approximate" phonetic lexicons using
+    rule-based spelling-to-sound conversion (which is what we ended up
+    doing for Babel)
   - Show how each ASR module relies on transcribed data - GMM based
     technology to current DNN based technology
   - Categorize tutorial topics
