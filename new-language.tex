@@ -10,12 +10,6 @@
   \item Audio Keyword Search
   \item What Language Characteristics Matter?
   \item A Recipe for a New Language
-    \begin{itemize}
-    \item Pronunciations
-    \item Flat-start Initialization
-    \item Multilingual Features
-    \item Web Text
-    \end{itemize}
   \end{enumerate}
 \end{frame}
 
@@ -101,6 +95,15 @@
     \vfill
     We can build practical keyword search from
     \alert{unreliable} speech recognition.
+\end{frame}
+
+\begin{frame}{Keyword search topics}{}
+  \begin{itemize}
+  \item Weighted finite-state acceptors and transducers
+  \item Constructing an audio index
+  \item Constructing queries
+  \item Measuring keyword search performance
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Weighted Finite-State Acceptors}{}
@@ -587,8 +590,175 @@ In these cases, a WFST framework is the best approach.
   Results on Lao, using a 10-hour training set.
 \end{frame}
 
-%% A Recipe for a New Language (do a VLLP and a recent FLP?)
-%% Pronunciations
-%% Flat-start Initialization
-%% Multilingual Features
-%% Web Text
+% Recipe for a new language, illustrated with Guarani
+\begin{frame}{A Recipe for a New Language: Paraguayan Guaran\'{i}}{}
+  \begin{itemize}
+    \item Background on the langauge
+    \item Dictionary generation
+    \item Training acoustic models
+    \item Training language models
+    \item Performance comparisons
+  \end{itemize}
+\end{frame}
+
+% Background
+\begin{frame}{Paraguayan Guaran\'{i}}{}
+  \begin{columns}[c]
+    \column{46mm}
+    \begin{itemize}
+    \item An official language in Paraguay
+    \item Tupian language family
+    \item Around 4 million native speakers
+    \item Substantial Spanish influence: code-switching and calques
+    \end{itemize}
+    \column{62mm}
+    \includegraphics[width=62mm]{figures/LocationParaguay}
+  \end{columns}
+  \vfill
+  \nb{Map of Paraguay by Wikimedia user \href{https://commons.wikimedia.org/wiki/User:Rei-artur}{Rei-artur}}
+\end{frame}
+
+\begin{frame}{Dictionary Generation}{The Guaran\'{i} writing system}
+  \begin{itemize}
+  \item Latin alphabet
+  \item `w' only in loan words
+  \item apostrophe marks glottal stops
+  \item Tilde can appear on eight letters
+    \begin{itemize}
+    \item \~{a}, \~{e}, \~{\i}, \~{o}, \~{u}, \~{y}, \~{g}, and \~{n}
+    \end{itemize}
+  \item Acute accent can appear on six letters
+    \begin{itemize}
+    \item \'{a}, \'{e}, \'{\i}, \'{o}, \'{u}, \'{y}
+    \end{itemize}
+  \item Dieresis can appear on `u'
+    \begin{itemize}
+    \item \"{u}
+    \end{itemize}
+  \item Ten digraphs
+    \begin{itemize}
+    \item mb, nd, ng, and nt (prenasalized consonants)
+    \item \~{g} (Unicode Latin Small Letter G and Unicode Combining Tilde)
+    \item ch, sh, and qu
+    \item rr and ll (only in Spanish loan words)
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Sample Lexicon Entries}{Regular words}
+  \centering
+  \begin{tabular}{@{}ll@{}}
+    emba'apomi\'{e}ma(01) & e mb a ' a p o m i e' m a \\
+    hasyp\'{a}ma(01) & h a s y p a' m a \\
+    mb\'{o}i(01) & mb o' i \\
+    nopenamo'\~{a}i(01) & n o p e n a m o ' a\~{} i \\
+    ofalla'imi(01) & o f a ll a ' i m i \\
+    o\~{n}ak\~{a}kar\~{a}i(01) & o n\~{} a k a\~{} k a r a\~{} i \\
+    pack(01) & p a k \\
+    rohechaga'ueterei(01) & r o h e ch a g a ' u e t e r e i \\
+    veintinu\'{e}ve(01) & v e i nt i n u e' v e \\
+    \~{n}a\~{n}omongeta(01) & n\~{} a n\~{} o m o ng e t a \\
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{Pronunciations of Spellings}{}
+  The data includes spellings, which are marked with underscores, e.g. ``a\_m.''
+  \vfill
+  In Guaran\'{i}, spellings are usually, but not always given with
+  Spanish letter pronunciations, except for nasalized vowels and
+  \~{g}.
+  \vfill
+  We opted to generate both Spanish and Guaran\'{i} pronunciations for
+  spelled tokens.
+\end{frame}
+
+\begin{frame}{Sample Lexicon Entries}{Spellings}
+  \centering
+  \begin{tabular}{@{}ll@{}}
+    a\_m(01)    & ' a' ' e' m e\~{} \\
+    a\_m(02)    & ' a' m e\~{} \\
+    b\_c(01)    & b e' s e' \\
+    b\_r(01)    & b e' ' e' r e \\
+    b\_r(02)    & b e' r e' \\
+    c\_n\_c(01) & s e' ' e' n e\~{} s e' \\
+    c\_n\_c(02) & s e' n e\~{} s e' \\
+    e\_p\_p(01) & ' e' p e' p e' \\
+    j\_r\_h(01) & h o' t a ' e' r e ' a' ch e \\
+    j\_r\_h(02) & j e' r e' h e' \\
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{Training Acoustic Models}{}
+  \begin{itemize}
+  \item Flat start: bootstrapping the models
+  \item Monolingual deep neural network model
+  \item Multilingual deep neural network model
+  \end{itemize}
+\end{frame}
+
+% flat start
+\begin{frame}{Flat Start}{}
+  \centering
+  \includegraphics[width=96mm]{figures/FlatStart}
+  \vfill
+  \raggedright
+  \begin{overlayarea}{\textwidth}{48mm}
+    \begin{enumerate}
+    \item Initialize single-Gaussian models with uniform segmentation
+    \item Run many iterations of forward-backward training
+    \item Gradually increase the number of mixture components
+    \end{enumerate}
+    \only<2>{
+      Two pitfalls:
+      \begin{itemize}
+      \item Need for a garbage model
+      \item Inclusion of long silences within segments
+      \end{itemize}
+    }
+  \end{overlayarea}
+\end{frame}
+
+\begin{frame}{Our Recipe}{}
+  \begin{description}[Context-Independent]
+  \item[GMM] 80 passes over data, splitting mixtures every 8.
+  \item[Speech/Nonspeech] 
+    \begin{enumerate}
+    \item Seed SPEECH, SIL, and REJ models with GMM.
+    \item 5 iterations Viterbi training, skipping utterances
+      containing REJ.
+    \end{enumerate}
+  \item[Context-Independent]
+    \begin{enumerate}
+    \item Seed phone models with SPEECH.
+    \item 5 iterations forward-backward training, skipping utterances
+      containing REJ.
+    \end{enumerate}
+  \end{description}
+\end{frame}
+
+\begin{frame}{Our Recipe}{}
+  \begin{description}[Phonetic mixup] 
+  \item[Phonetic mixup] Train 3 successive models
+    \begin{enumerate}
+    \item 250 states; 6 mixtures per state
+    \item 500 states; 6 mixtures per state
+    \item 1,000 states; 6 mixtures per state
+    \end{enumerate}
+    Each model trained with 20 iterations of Viterbi followed by 10
+    iterations of forward-backward.
+  \item[Global mixup] Train 3 successive models, each with 1,000
+    states and 6 mixtures per state.
+  \item[Full model] 6,000 states and 6 mixtures per state
+  \end{description}
+  \vfill
+  Phonetic models use phone+position roots for decision trees, while
+  global and full models use position roots.
+\end{frame}
+
+% Monolingual DNN
+
+% Multilingual DNN
+
+% Performance of these
+
+% revisit web text?
