@@ -446,17 +446,17 @@
 
 \begin{frame}{Impact of Web Text}{}
   \centering
-  \begin{tabular}{@{}lcd{5.1}d{3.1}cc@{}} \toprule
+  \begin{tabular}{@{}lcd{6.1}d{3.1}cc@{}} \toprule
     & & \multicolumn{1}{c}{\bf Train} & \multicolumn{1}{c}{\bf Voc.} &               &            \\
     {\bf Language} & {\bf Web?} & \multicolumn{1}{c}{\bf size} & \multicolumn{1}{c}{\bf size} & {\bf \% WER} & {\bf MTWV} \\ \midrule
 
 
-    Igbo        & N &    45.3 & 16.5 & 66.5 & 0.2387 \\
-                & Y &   707.  & 19.3 & 66.5 & 0.2389 \\ \midrule
-    Guaran\'{i} & N &    46.8 & 26.3 & 53.5 & 0.4562 \\
-                & Y &   437.  & 36.8 & 53.5 & 0.4665 \\ \midrule
-    Mongolian   & N &    51.2 & 23.6 & 61.1 & 0.3497 \\
-                & Y & 55300.  & 217. & 60.4 & 0.3849 \\ \bottomrule
+    Igbo        & N &     45.3 & 16.5 & 66.5 & 0.2387 \\
+                & Y &  17200.  & 19.5 & 66.5 & 0.2389 \\ \midrule
+    Guaran\'{i} & N &     46.8 & 26.3 & 53.5 & 0.4562 \\
+                & Y &  23900.  & 36.9 & 53.5 & 0.4665 \\ \midrule
+    Mongolian   & N &     51.2 & 23.6 & 61.1 & 0.3497 \\
+                & Y & 118000. & 220. & 60.4 & 0.3849 \\ \bottomrule
   \end{tabular}
   \vfill
   \raggedright
@@ -593,7 +593,7 @@ In these cases, a WFST framework is the best approach.
 % Recipe for a new language, illustrated with Guarani
 \begin{frame}{A Recipe for a New Language: Paraguayan Guaran\'{i}}{}
   \begin{itemize}
-    \item Background on the langauge
+    \item Background on the language
     \item Dictionary generation
     \item Training acoustic models
     \item Training language models
@@ -664,7 +664,7 @@ In these cases, a WFST framework is the best approach.
 \begin{frame}{Pronunciations of Spellings}{}
   The data includes spellings, which are marked with underscores, e.g. ``a\_m.''
   \vfill
-  In Guaran\'{i}, spellings are usually, but not always given with
+  In Guaran\'{i}, spellings are usually given with
   Spanish letter pronunciations, except for nasalized vowels and
   \~{g}.
   \vfill
@@ -711,7 +711,7 @@ In these cases, a WFST framework is the best approach.
     \only<2>{
       Two pitfalls:
       \begin{itemize}
-      \item Need for a garbage model
+      \item Need for a garbage (REJ) model
       \item Inclusion of long silences within segments
       \end{itemize}
     }
@@ -734,6 +734,8 @@ In these cases, a WFST framework is the best approach.
       containing REJ.
     \end{enumerate}
   \end{description}
+  \vfill
+  These models use PLP$+\Delta+\Delta^{2}$ features.
 \end{frame}
 
 \begin{frame}{Our Recipe}{}
@@ -744,21 +746,125 @@ In these cases, a WFST framework is the best approach.
     \item 500 states; 6 mixtures per state
     \item 1,000 states; 6 mixtures per state
     \end{enumerate}
-    Each model trained with 20 iterations of Viterbi followed by 10
-    iterations of forward-backward.
+    Training is 20 iterations of Viterbi, then 10 iterations of
+    forward-backward.
   \item[Global mixup] Train 3 successive models, each with 1,000
     states and 6 mixtures per state.
   \item[Full model] 6,000 states and 6 mixtures per state
   \end{description}
   \vfill
+  These models use PLP+LDA+STC features. \\
   Phonetic models use phone+position roots for decision trees, while
   global and full models use position roots.
 \end{frame}
 
 % Monolingual DNN
+\begin{frame}{Our Recipe}{Monolingual DNN}
+  \begin{itemize}
+  \item Input is 9 frames of 40-d PLP+LDA+STC features.
+  \item 3 hidden layers with 1,024 ReLU units, then
+  \item 1 hidden layer with 1,024 sigmoid units, then
+  \item 128-unit linear bottleneck~\cite{Sainath2013}, then
+  \item 3,000-unit softmax output layer.
+  \end{itemize}
+  \vfill
+  Training on 40h of data in three phases:
+  \begin{enumerate}
+  \item discriminative pretraining~\cite{Seide2011},
+  \item cross-entropy training, and
+  \item state-level minimum Bayes risk training with distributed
+    Hessian-free algorithm~\cite{Kingsbury2012}.
+  \end{enumerate}
+\end{frame}
 
 % Multilingual DNN
+\begin{frame}{Our Recipe}{Multilingual Features}
+  \centering
+  \includegraphics[height=48mm]{figures/mldnn}
+  \vfill
+  \raggedright
+  Stacked CNN/DNN architecture similar to \cite{Grezl2009}, using
+  language-dependent output layers~\cite{Scanzio2008}.
+  \vfill
+  \nb{Thanks to Jia Cui of IBM for this figure.}
+\end{frame}
 
-% Performance of these
+\begin{frame}{Our Recipe}{Multilingual Features}
+  \begin{description}[CNN]
+    \item[CNN]
+      \begin{itemize}
+      \item 11 frames of log-Mel$+\Delta+\Delta^{2}$ features
+      \item Conv. layer with $9 \time 9$ kernels, 128 feature maps,
+        and max-pooling in frequency with a window and stride of 3.
+      \item Conv. layer with $3 \time 4$ kernels, 256 feature maps,
+        and no pooling.
+      \item 7 hidden layers of 2048, 1024, 1024, 1024, \alert{80},
+        1024, and 3000 sigmoidal units.
+      \end{itemize}
+    \item[DNN]
+      \begin{itemize}
+      \item 80-d bottleneck output from CNN at $t-10$, $t-5$, $t$,
+        $t+5$, and $t+10$.
+      \item 5 hidden layers of 1024, 1024, \alert{80}, 1024, and 3000
+        sigmoidal units.
+      \end{itemize}
+  \end{description}
+  \vfill
+  Training of all networks is cross-entropy on 24 Babel languages (all
+  but Georgian).
+\end{frame}
 
-% revisit web text?
+\begin{frame}{Our Recipe}{Multilingual DNN}
+  \begin{itemize}
+  \item Input is 1 frame of 80-d multilingual features.
+  \item 3 hidden layers with 1,024 ReLU units, then
+  \item 1 hidden layer with 1,024 sigmoid units, then
+  \item 256-unit linear bottleneck, then
+  \item 3,000-unit softmax output layer.
+  \end{itemize}
+  \vfill
+  Training on 40h of data in three phases:
+  \begin{enumerate}
+  \item discriminative pretraining,
+  \item cross-entropy training, and
+  \item state-level minimum Bayes risk training with distributed
+    Hessian-free algorithm.
+  \end{enumerate}
+\end{frame}
+
+% LMs
+\begin{frame}{Training Language Models}{}
+  \begin{description}[On transcripts]
+  \item[On transcripts] Bigram LM with modified Kneser-Ney smoothing
+    trained on 320K words with a 26.3K vocabulary.
+  \item[Plus web text] Interpolated bigram LM with modified Kneser-Ney
+    smoothing trained on 17.2M words with a 36.9K vocabulary.
+  \end{description}
+\end{frame}
+
+% Performance comparisons
+\begin{frame}{Performance of different acoustic models}{}
+  \centering
+  \begin{tabular}{@{}lcc@{}} \toprule
+  {\bf Model} & {\bf Multilingual?} & {\bf \% WER} \\ \midrule
+  GMM      & N & 68.9 \\
+  CE DNN   & N & 63.7 \\
+  sMBR DNN & N & 58.3 \\
+  sMBR DNN & Y &      \\ \bottomrule
+  \end{tabular}
+  \vfill
+  \raggedright
+  All runs use bigram LM trained from transcripts.
+\end{frame}
+
+\begin{frame}{Performance of different language models}{}
+  \centering
+  \begin{tabular}{@{}lcc@{}} \toprule
+  {\bf Model} & {\bf \% WER} & {\bf MTWV} \\ \midrule
+  Transcripts & & \\
+  + Web text  & 47.5 & 0.5345 \\ \bottomrule
+  \end{tabular}
+  \vfill
+  \raggedright
+  All runs use multilingual DNN acoustic model.
+\end{frame}
