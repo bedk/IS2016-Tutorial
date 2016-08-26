@@ -193,39 +193,73 @@ and a search module.}
 \end{frame}
 
 \begin{frame}{Feature Extraction - Introduction}
+\begin{enumerate}
+\item Why not use the speech signal directly for pattern recognition?
+\begin{enumerate}
+\item Speech is a \alert{time-varying non-stationary signal}
+\item Information may lie in a \alert{small portion} of signal
+\item May contain \alert{irrelevant information} for the application
+\item Presence of \alert{noise and other distortions}
+\item \alert{Size and dimensionality} of the data
+\end{enumerate}
+\item Need to transform the signal into lower dimensional descriptors called \alert{features}.
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{Feature Extraction - Past Techniques}
+\begin{columns}[T]
+    \column{2in}
+	\includegraphics[height=73mm]{figures/acoustic}
+     \column{2in}
+	\begin{enumerate}
+	\item \alert{Speech Coding Inspired Features} - Mel Spectrogram and Linear Prediction
+	\item \alert{Speech Synthesis Inspired Features} - Pitch and Prosody
+	\item \alert{Long Contextual Features} - Delta Processing, RASTA Filtering and Modulation Features
+        \item \alert{Normalization Techniques} - Cepstral Mean Normalization and Spectral Subtraction
+	\end{enumerate}
+\end{columns}
 \end{frame}
 
 \begin{frame}{Feature Extraction - Current Techniques}
+\includegraphics[height=76mm]{figures/data_driven}
 \end{frame}
 
 \begin{frame}{Acoustic Modeling - Introduction}
 \end{frame}
 
 \begin{frame}{Acoustic Modeling - Past Techniques}
+%GMM
 \end{frame}
 
 \begin{frame}{Acoustic Modeling - Current Techniques}
+%Neural networks
 \end{frame}
 
 \begin{frame}{Language Modeling - Introduction}
 \end{frame}
 
 \begin{frame}{Language Modeling - Past Techniques}
+%Ngrams
+%Class based models
 \end{frame}
 
 \begin{frame}{Language Modeling - Current Techniques}
+%Neural networks
 \end{frame}
 
-\begin{frame}{Pronunciation Lexion - Introduction}
+\begin{frame}{Pronunciation Lexicon - Introduction}
 \end{frame}
 
-\begin{frame}{Pronunciation Lexion - Past Techniques}
+\begin{frame}{Pronunciation Lexicon - Past Techniques}
+%handcrafted
 \end{frame}
 
-\begin{frame}{Pronunciation Lexion - Current Techniques}
+\begin{frame}{Pronunciation Lexicon - Current Techniques}
+%automatic generation
+\end{frame}
+
+\begin{frame}{The Decoder}
+%
 \end{frame}
 
 \begin{frame}{New Languages and Domains - More specifics!}
@@ -235,8 +269,13 @@ and a search module.}
 {\color{orange}{New Languages}}
 \begin{enumerate}
 \item Every language is \alert{unique} although they might share many constructs with other languages
-\item \alert{Seperate resources} specific to the language for building ASR systems are required,
-possibility to share resources across languages
+\item \alert{Seperate resources} specific to the language for building ASR systems are required
+\begin{enumerate}
+\item Feature extraction
+\item Acoustic models
+\item Language models
+\item Pronunciation lexicons
+\end{enumerate}
 \item \alert{Building a new ASR system from scratch}
 \end{enumerate}
 \column{2in}
@@ -245,6 +284,12 @@ possibility to share resources across languages
 \begin{enumerate}
 \item Domains might have specific constructs but usually involves \alert{tailoring existing resources} of a language
 \item Resources from the same languages can be \alert{shared}
+\begin{enumerate}
+\item Feature extraction
+\item Acoustic models
+\item Language models
+\item Pronunciation lexicons
+\end{enumerate}
 \item Usually \alert{an ASR adaptation problem} rather than building from scratch
 \end{enumerate}
 \end{columns}
