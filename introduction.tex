@@ -206,7 +206,7 @@ and a search module.}
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{Feature Extraction - Past Techniques}
+\begin{frame}{Feature Extraction - "Past" Techniques}
 \begin{columns}[T]
     \column{2in}
 	\includegraphics[height=73mm]{figures/acoustic}
@@ -225,14 +225,64 @@ and a search module.}
 \end{frame}
 
 \begin{frame}{Acoustic Modeling - Introduction}
+\begin{center}
+\includegraphics[height=72mm]{figures/am}
+\end{center}
 \end{frame}
 
-\begin{frame}{Acoustic Modeling - Past Techniques}
-%GMM
+\begin{frame}{Acoustic Modeling - "Past" Techniques}
+\begin{enumerate}
+\item The \alert{goal of the AM} is to provide a method of calculating the likelihood
+of any feature vector sequence $Y$ given a word $w$
+\item \alert{The basic \alert{sequence} model} -
+\begin{enumerate}
+\item To estimate this likelihood word sequences are decomposed into basic sound units
+called phones
+\item Each individual phone is represented using a Hidden Markov Model (HMM) - a state machine with 
+a number of states connected with arcs in a left-right topology.
+\item Each state models the distribution of acoustic vectors with Gaussian mixture models.
+\item HMM algorithms: Likelihood computation (forward algorithm), most probable state sequence (Viterbi algorithm), 
+estimating parameters (EM algorithm)
+\end{enumerate}
+\item \alert{Improvements to the basic model} -
+\begin{enumerate}
+\item Modeling - Context-dependent models, Tied mixture models, state clustering, phonetic decision trees
+\item Training criteria - MLE, MMIE, MPE for training HMM-GMM based systems
+\end{enumerate}
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{Acoustic Modeling - "Past" Techniques}
+\begin{center}
+\includegraphics[height=65mm]{figures/am-gmm}
+\end{center}
 \end{frame}
 
 \begin{frame}{Acoustic Modeling - Current Techniques}
-%Neural networks
+\begin{center}
+\includegraphics[height=65mm]{figures/am-mlp}
+\end{center}
+\end{frame}
+
+\begin{frame}{Acoustic Modeling - Current Techniques}
+\begin{enumerate}
+\item The \alert{basic} model -
+\begin{enumerate}
+\item Train neural networks to estimate posterior probabilities of speech classes
+\item Instead of GMM based likelihood estimates use scaled likelihoods based
+off neural network posterior probabilities
+\item Trained to discriminate between output classes with a cross-entropy
+based training criteria.
+\end{enumerate}
+\item \alert{Improvements to the basic model} -
+\begin{enumerate}
+\item Deeper networks, output states corresponding to context dependent states, 
+various configurations - CNNs, RNNs, LSTMs
+\item Modeling using larger context and correlated features
+\item Integration of feature extraction and acoustic modeling
+\item Siginificant improvements in WER 
+\end{enumerate}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{Language Modeling - Introduction}
