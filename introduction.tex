@@ -105,7 +105,7 @@
 \begin{frame}{For a given language, New Speech Applications = New Domains?}
 
 \begin{enumerate}
-\item Applications
+\item \alert{Applications}
 \begin{enumerate}
   \item Mobile phone applications - voice search
   \item IVR applications/Call centers
@@ -116,12 +116,12 @@
   \item Transcription - Court reporting
   \item Robotics/Gaming
 \end{enumerate}
-\item Noise distortions to speech input of existing applications
+\item \alert{Noise distortions} to speech input of existing applications
 \begin{enumerate}
   \item Additive Noise
   \item Convolutive Noise
 \end{enumerate}
-\item Every new speech recognition deployment!
+\item Every \alert{new} speech recognition deployment!
 \end{enumerate}
 \end{frame}
 
@@ -192,6 +192,10 @@ and a search module.}
 \includegraphics[height=77mm]{figures/ASR9}
 \end{frame}
 
+\begin{frame}{What's under the hood for ASR?}
+\includegraphics[height=77mm]{figures/b1}
+\end{frame}
+
 \begin{frame}{Feature Extraction - Introduction}
 \begin{enumerate}
 \item Why not use the speech signal directly for pattern recognition?
@@ -222,6 +226,10 @@ and a search module.}
 
 \begin{frame}{Feature Extraction - Current Techniques}
 \includegraphics[height=76mm]{figures/data_driven}
+\end{frame}
+
+\begin{frame}{What's under the hood for ASR?}
+\includegraphics[height=77mm]{figures/b2}
 \end{frame}
 
 \begin{frame}{Acoustic Modeling - Introduction}
@@ -277,39 +285,116 @@ based training criteria.
 \item \alert{Improvements to the basic model} -
 \begin{enumerate}
 \item Deeper networks, output states corresponding to context dependent states, 
-various configurations - CNNs, RNNs, LSTMs
+\item Various configurations - CNNs, RNNs, LSTMs
 \item Modeling using larger context and correlated features
-\item Integration of feature extraction and acoustic modeling
-\item Siginificant improvements in WER 
+\item Tigher integration of feature extraction and acoustic modeling
 \end{enumerate}
 \end{enumerate}
+\end{frame}
+
+\begin{frame}{What's under the hood for ASR?}
+\includegraphics[height=77mm]{figures/b3}
 \end{frame}
 
 \begin{frame}{Language Modeling - Introduction}
+\begin{enumerate}
+\item Estimate the \alert{prior probability} of a word sequence $P(W)$
+\item Provides the ASR system with \alert{information about contexual relationships} at a much higher word level
+\item Helps \alert{constrain the search space} by helping disambiguate between word sequences that 
+sound acoustically similar - "recognize speech" vs. "wreck a nice beach"
+\end{enumerate}
 \end{frame}
 
-\begin{frame}{Language Modeling - Past Techniques}
+\begin{frame}{Language Modeling - "Past" Techniques}
 %Ngrams
 %Class based models
+\begin{enumerate}
+\item The \alert{basic} model -
+	\begin{enumerate}
+	\item Simple \alert{n-grams} based language models
+	\item Probability of a word depends on the word and preceding n-1 words
+	\item For a word sequence $W$ = $w_1,w_2,\dots,w_N$, \\
+        \begin{center}$P(W)$ = $P(w_1)P(w_2|w_1)P(w_3|w_1,w_2)\dots P(w_N|w_1,w_2,\dots w_{N-1})$\end{center}
+	\item A bigram approximation limits the context to one word \\
+        \begin{center}$P(W)$ $\simeq$ $P(w_1)P(w_2|w_1)P(w_3|w_2)\dots P(w_N|w_{N-1})$\end{center}
+        \item Maximum likelihood estimates for conditional probabilities using counts\\
+        \begin{center}$P(w_i|w_j)$ = $\frac{c(w_j,w_i)}{c(w_j)}$\end{center}
+	\item Unseen ngrams accounted for using smoothing/discounting/backoff
+	\end{enumerate}
+\item \alert{Improvements to the basic model} -
+	\begin{enumerate}
+	\item Class-based n-grams, maximum entropy language models
+	\end{enumerate}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{Language Modeling - Current Techniques}
-%Neural networks
+\begin{center}
+Neural network based language models \\
+
+\includegraphics[height=40mm]{figures/lm-mlp}
+\end{center}
 \end{frame}
 
-\begin{frame}{Pronunciation Lexicon - Introduction}
+\begin{frame}{What's under the hood for ASR?}
+\includegraphics[height=77mm]{figures/b4}
 \end{frame}
 
-\begin{frame}{Pronunciation Lexicon - Past Techniques}
-%handcrafted
+\begin{frame}{Pronunciation Lexicon}
+\begin{enumerate}
+\item Provides pronunciations of words \alert{linking} the AM and LM
+\item Typically words are represented \alert{phonetically}
+\begin{center}
+vases(01)                      V EY Z IH Z \\
+\end{center}
+\item Pronunciation \alert{variants} also need to be added\\
+\begin{center}
+vases(01)                      V EY Z IH Z \\
+vases(02)                      V AA Z IH Z \\
+vases(03)                      V EY S IH Z \\
+\end{center}
+\item \alert{Expensive} since pronunciations are created by human experts
+\end{enumerate}
 \end{frame}
 
-\begin{frame}{Pronunciation Lexicon - Current Techniques}
-%automatic generation
+\begin{frame}{Pronunciation Lexicon}
+\begin{enumerate}
+\item The \alert{basic} model -
+\begin{enumerate}
+\item Dictionary created by human experts
+\item Grapheme-to-phoneme models - learn pronunciations of words based on initial dictionary
+\end{enumerate}
+\item \alert{Morphologically rich languages} - modeling at morph level
+\begin{enumerate}
+\item Compounding (eg. German)
+\item Highly inflected languages (eg. Slavic languages)
+\item Inflection and compounding (eg. Finnish)
+\end{enumerate}
+\item \alert{Graphemic dictionaries} - modeling at the character level - bypass the need for pronunciations
+\end{enumerate}
+\end{frame}
+
+\begin{frame}{What's under the hood for ASR?}
+\includegraphics[height=77mm]{figures/b5}
 \end{frame}
 
 \begin{frame}{The Decoder}
-%
+\begin{enumerate}
+\item HMM-based speech recognition - \alert{Viterbi decoding} - efficient dynamic programming based 
+search for optimal exhaustive search
+\item Search for large vocabulary task is \alert{complex} -
+\begin{enumerate}
+\item Cross-word triphones and word boundaries
+\item Huge search spaces with long-span language models
+\end{enumerate}
+\item Improved techniques for search -
+\begin{enumerate}
+\item Bearch pruning
+\item Multipass search
+\item Dynamic networks
+\item Weighted finite state transducers
+\end{enumerate}
+\end{enumerate}
 \end{frame}
 
 \begin{frame}{New Languages and Domains - More specifics!}
