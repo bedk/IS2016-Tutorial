@@ -19,7 +19,7 @@
 
 \begin{frame}{Are we there yet?}
   \begin{center}
-    \includegraphics[height=77mm]{figures/ASR9}
+    \includegraphics[height=65mm]{figures/ASR9}
   \end{center}
 \end{frame}
 
@@ -32,18 +32,146 @@
 \begin{frame}{Challenges}
   \begin{itemize}
   \item What could be wrong?
-  \item We are using a solid statistical framework, right?
+  \item We are using a solid statistical framework
   \item We know how to extract ``features''
   \item We know how to learn models
   \item We know how to search for the best path
+  \item So we must be doing the right thing!
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Really?}
+\begin{frame}{Really? Let's think about this some more!}
   \begin{itemize}
-  \item Fundamental Equation of ASR
-  \item $W' = argmax$
+    \item Given: an observation (ADC, FFT, ...)\\
+      $\boldsymbol{X} = \boldsymbol{x}_1, \boldsymbol{x}_2, ..., \boldsymbol{x}_T$
+    \item Wanted: the corresponding word sequence\\
+      $W = w_1, w_2, ..., w_m$
+    \item Search for the most likely word sequence $W'$
+    \item Fundamental Equation of ASR: \\
+      $W' = \arg \max_W P(W|\boldsymbol{X}) = \arg \max p(\boldsymbol{X}|W) P(W) $ \hspace{1cm} (Bayes)
+    \item $p(\boldsymbol{X}|W)$ is the ``acoustic model''
+    \item $P(W)$ is the ``language model''
+    \item And how are we evaluating this?
   \end{itemize}
+\end{frame}
+
+\begin{frame}{Word Error Rate}
+  \begin{itemize}
+    \item \#errors / \#words (in reference)
+    \item (\#insertions + \#substitutions + \#deletions) / \#words
+    \item Example:\\
+      \begin{tabular}{lccccc}
+        Reference  &            & \texttt{SHOW} & \texttt{ME} & \texttt{THE} & \texttt{INTERFACE} \\
+        Hypothesis & \texttt{I} & \texttt{SHOW} & \texttt{ME} &              & \texttt{FACE} \\
+        Alignment  & \textsc{I} &               &             & \textsc{D}   & \textsc{S} \\
+      \end{tabular}
+    \item WER=$3/4=75\%$
+    \item So? Did anyone see this in the fundamental equation? $P(W|\boldsymbol{X})$, anyone?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Fundamentals revisited}
+  \begin{itemize}
+  \item If we are optimizing for $P(W|\boldsymbol{X})$,
+    we are optimizing for the \textit{sentence} error rate, $\langle P(W|\boldsymbol{X}) \rangle$
+  \item But we want $P(\langle w_i \rangle|\boldsymbol{X})$ for $W=w_1,w_2, ..., w_m$ (for one sentence)
+  \item Clearly, this is not the same thing!
+  \item However, in practice, it is not complete uncorrelated either
+    \begin{itemize}
+    \item[$\rightarrow$] And there are ways to deal with this (confusion networks, discriminative training)
+    \end{itemize}
+  \item Similarly, for spoken term detection, dialog systems, etc.
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The speech recogition conundrum}
+  \begin{itemize}
+  \item We want to optimize word error rate (or whatever)\\
+    \vspace{1cm}
+  \item We optimize the acoustic model for (frame-)likelihood (or cross-entropy, or MPE, sMBR, ...)
+  \item We train a language model for perplexity
+  \item And then we search for the most likely path (a ``sentence'')
+  \item And this works?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{The speech recognition conundrum - It's ugly!}
+  \begin{center}
+    \includegraphics[height=65mm]{figures/medusa}
+  \end{center}
+\end{frame}
+
+\begin{frame}{Do we really need Hidden Markov Models?}
+  \begin{itemize}
+  \item We know all the theory of why HMMs are good for modelling time series
+  \item We have \#states, initial probability distribution, emission probabilities,
+    transition probabilities, and the alphabet to define
+  \item Many different ``types'' of parameters that we can play with, until we believe we have a good fit
+  \item In practice, we already neglect transition probabilities
+  \item The probability of staying in a state decays exponentially over time
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Observed Phone Durations}
+  \begin{center}
+    \includegraphics[height=50mm]{figures/durations}
+  \end{center}
+  \tiny From: \textit{Phone Duration Modeling Techniques in Continuous Speech 
+    Recognition.} Janne Pylkk\"onen. Helsinki U. of Technology. 2004.
+\end{frame}
+
+\begin{frame}{Phone Durations with a single-state HMM}
+  \begin{center}
+    \includegraphics[height=50mm]{figures/durations3}
+  \end{center}
+  \begin{itemize}
+  \item A single HMM state has an exponentially decreasing duration distribution.
+  \item A typical tri-state topology (\textsc{-b -m -e} states) at least has a ``maximum'' peak for
+    the expected duration of the whole phone
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Duration Modelling with HMMs}
+  \begin{itemize}
+  \item A tri-state topology (-b -m -e states) at least has a ``maximum'' peak for
+    the expected duration of the whole phone
+  \item It is still quite arbitrary - we have plosives, short vowels, long vowels, ...\\
+    \hspace{1cm}
+  \item \textbf{In short}: \textit{let's not make explicit model assumptions
+    that aren't really justified, and that we cannot train the parameters for}
+    \begin{itemize}
+    \item (I hope I am not insulting anyone, but:) duration modeling has never shown
+      worthwhile, consistent gains\\
+      \hspace{1cm}\\
+      \hspace{1cm}
+    \end{itemize}
+    \item \textbf{Maybe}, \textit{we should not be using HMMs after all}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ok, so what do we do?}
+  \begin{itemize}
+  \item There are a few more problems (e.g., hyper-articulation)
+  \item Speech recognition ``works''
+  \item Airplanes don't fly the same way birds fly
+  \item We may be fine
+  \item Still, what could we do?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Let's take a step back}
+  \begin{itemize}
+  \item What are we really trying to achieve?
+  \item We want to translate a sequence of observations to a sequence of words
+  \item And ideally, we want to use a single optimality criterion for that
+  \item In 2016? In San Francisco?
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{There must be a Deep Learning solution for this!}
+  \begin{center}
+    \includegraphics[height=65mm]{figures/s2s}
+  \end{center}
 \end{frame}
 
 \begin{frame}
