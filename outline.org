@@ -9,8 +9,18 @@
     environments
   - Limit discussion to Speech Recognition
   - What is under the hood for speech recognition technologies?
+  - Be sure to cover the lexicon, explaining phonetic lexicons,
+    graphemic lexicons, and "approximate" phonetic lexicons using
+    rule-based spelling-to-sound conversion (which is what we ended up
+    doing for Babel)
   - Show how each ASR module relies on transcribed data - GMM based
     technology to current DNN based technology
+  - Discuss methods for improving performance when small amounts of
+    transcribed data are available.
+    - multilingual feature front-ends
+    - multilingual AMs
+    - Data augmentation
+    - Semi-supervised training
   - Categorize tutorial topics
     A. New Languages - Building from ASR systems from scratch
     B. New domain - Adaptation of an existing ASR system
@@ -45,12 +55,6 @@
     pitch feature or provide the same information implicitly via a
     higher resolution spectral input and sufficiently long context
     window.
-*** How much transcribed data is available?
-    If there is only a little, can mitigate with
-    - multilingual feature front-ends
-    - multilingual AMs
-    - Data augmentation
-    - Semi-supervised training
 
 ** Babel recipe
 *** Graphemic models
