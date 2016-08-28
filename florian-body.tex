@@ -116,8 +116,7 @@
   \begin{center}
     \includegraphics[height=50mm]{figures/durations}
   \end{center}
-  \tiny From: \textit{Phone Duration Modeling Techniques in Continuous Speech 
-    Recognition.} Janne Pylkk\"onen. Helsinki U. of Technology. 2004.
+  \tiny From \cite{Pylkkonen04durationmodeling}
 \end{frame}
 
 \begin{frame}{Phone Durations with a single-state HMM}
@@ -174,17 +173,230 @@
   \end{center}
 \end{frame}
 
-\begin{frame}
-  \frametitle{Research Topics}
+\begin{frame}{Easy, isn't it?}
+  \begin{center}
+    \includegraphics[height=35mm]{figures/s2s-fig}
+  \end{center}
+\hspace{1.7cm} $\rightarrow$ SPEECH $\mapsto$ TXET $\rightarrow$
 \end{frame}
 
-\begin{frame}
-  \frametitle{New Ideas}
+\begin{frame}{End-to-end models with attention}
+  \begin{itemize}
+  \item ``Sequences'' in speech are much longer than in text (even at 30Hz)
+  \item The ``encoder'''s task is therefore much harder
+  \item However there is no re-ordering going on (unlike in Machine Translation)
+  \item So, ``attention'' mechanisms are well suited to recover from decoding errors
+    \begin{itemize}
+    \item Imagine the attention mechanism ``guiding'' an RNN language model
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
-\begin{frame}
-  \frametitle{End-to-End Systems}
+\begin{frame}{End-to-end models with attention}
+  \begin{center}
+    \includegraphics[height=55mm]{figures/att}
+  \end{center}
+  \tiny From \cite{BahdanauCSBB15}
 \end{frame}
+
+\begin{frame}{And this works? What's the WER?}
+  \begin{itemize}
+  \item According to ``Listen, Attend and Spell'' (\cite{las}):
+    \begin{itemize}
+    \item Google says they're close on their task (10.3\% vs.\ 8.0\%)
+    \item 1000s of hours of training data
+    \item ``Insane'' amount of computation [personal communication]
+    \end{itemize}
+  \item Other work emerging, still showing higher word error rates
+  \item But this is probably just the tip of the ice-berg.
+    \begin{itemize}
+    \item If you can go from images to text, you can surely go from speech to text
+      \item Optimization for other criteria and joint learning certainly possible
+    \end{itemize}
+  \item What have we gained?
+    \begin{itemize}
+    \item There are almost no explicit assumptions in our model
+    \item Everything becomes a Deep Learning hyper-parameter
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{So, why did we not start here?}
+  \begin{itemize}
+  \item Problem with end-to-end learning? It is end-to-end!
+  \item How to go from language to another, from one domain to the next?
+  \item Who knows. Topic for a NIPS 2020 Tutorial (or maybe 2018)
+    \begin{itemize}
+    \item Condition the decoder on something?
+    \item Find clever embeddings?
+    \item ...?
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Does it end here?}
+  \begin{itemize}
+  \item No!!!
+  \item Alternatives? Still (somewhat) end-to-end, neural?
+  \item Connectionist Temporal Classification \& friends
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Connectionist Temporal Classification}
+  \begin{itemize}
+  \item We want to stay sequence-to-sequence
+    \begin{itemize}
+    \item Do not bring back any of the ``traditional'' ballast
+    \item In particular the CD-HMM complexity
+    \end{itemize}
+  \item Separate the acoustics and the language model
+    \begin{itemize}
+      \item That's just convenient and pragmatic (even though it's maybe no longer strictly end-to-end)
+      \item So we want an acoustic model that assumes neighboring units to be independent
+    \end{itemize}
+  \item We don't need re-ordering and stuff
+    \begin{itemize}
+    \item We don't even really care about time information
+    \item Speech is continuous and dynamic, maybe there should not be any lasting ``states''
+    \end{itemize}
+  \item Remember what we said about flat start?
+    \begin{itemize}
+    \item Maybe we can put all this in the model?
+    \item And not deal with frame likelihoods etc.\ in too much detail
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Connectionist Temporal Classification (CTC)}
+  \begin{itemize}
+  \item Alex Graves (2006) described the ``CTC'' loss function
+    \begin{itemize}
+    \item Defined over a label sequence (length $M$)
+    \item Sum over all possible frame alignments (length $T$) permitted for label sequence using Forward-Backward
+    \end{itemize}
+  \item Plays well with RNN or LSTM neural network models
+  \item CTC introduces a new symbol: blank (-)
+    \begin{itemize}
+    \item ``No output''
+    \item Do not confuse with ``silence''
+    \end{itemize}
+  \item Most of the time, the network will output (-)
+    \begin{itemize}
+    \item ``Sparse'' model, not dense in time
+    \item Class im-balance not a problem in a connectionist architecture
+    \item As long as the target symbols appear from time to time
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Connectionist Temporal Classification}
+  \begin{itemize}
+  \item How does this work?
+  \item The probability of recognising a ``label'' is the sum of all permitted paths
+    (over ``frames'') that correspond to that ``label''
+  \item Example: label (sequence) $\boldsymbol{l}$ is \textsc{A}
+    \begin{itemize}
+    \item Permitted paths $\pi$ for \textsc{A} are \textsc{a}, \textsc{-a}, \textsc{{-}-aaa}, ...
+    \item But not \textsc{a-a}
+    \end{itemize}
+  \item Example: label sequence $\boldsymbol{l}$ is \textsc{AB}
+    \begin{itemize}
+    \item Permitted paths $\pi$ for \textsc{AB} are e.g.\,\textsc{ab}, \textsc{{-}-{-}-aaab-{-}}, \textsc{-a-bb-{-}-}, ...
+      \item \textsc{AA} has to be \textsc{a-a}, but \textsc{AB} can be \textsc{ab} or \textsc{a-b}
+    \end{itemize}
+  \item A grammar that collapses repetitions and deletes blanks
+    \begin{itemize}
+    \item Non bijective map $\mathcal{B}$ between paths $\pi$ and label sequences $\boldsymbol{l}$
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{CTC Loss Function}
+  \begin{align}
+    p(\boldsymbol{l}|\boldsymbol{X})   & = \sum_{\pi \in \mathcal{B}^{-1}(\boldsymbol{l})} p(\pi|\boldsymbol{X})\\
+    p(\pi|\boldsymbol{X}) & = \prod_{t=1}^T y^t_{\pi_t}, \forall \pi \in L'^T
+  \end{align}
+  \begin{itemize}
+  \item $y^t_{\pi_t}$ is the output of the network at time $t$ (according to the path)
+  \item The likelihood of a labeling $p(\boldsymbol{l}|\boldsymbol{X})$ can be computed efficiently using Fwd-Bwd over all permitted paths, using prefixes/ postfixes
+  \item Also introduce an augmented label sequence $\boldsymbol{l'}$ which includes optional blanks
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{CTC Loss Function}
+  \begin{align}
+    O^{ML}(S,\mathcal{N}_W)&=-\sum_{(x,z) \in S} ln(p(z|x))
+  \end{align}
+  \begin{itemize}
+  \item Loss function is neg-log prob of correctly labeling all observation/ labeling pairs $(x,z) \in S$
+  \item $y = \mathcal{N}_w (x)$ is the mapping that the network induces 
+  \item Consider each sequence pair independently, indexed by $t$
+  \item Interestingly, the error can be backpropagated through this easily
+  \end{itemize}
+\end{frame}
+% TODO: check this
+
+\begin{frame}{What does this look like?}
+  \begin{center}
+    \includegraphics[height=35mm]{figures/ctc}
+  \end{center}
+  \tiny From \cite{graves2006connectionist}
+\end{frame}
+
+\begin{frame}{???}
+  \begin{itemize}
+  \item Originally, it was not clear how these things could be decoded efficiently
+  \item Turns out, a wFST (weighted Finite State Transducer) framework works just fine \cite{eesen,sak2015fast}
+  \item Need to carefully design the $T$ transducers for the tokens, which however replace the $H$ (HMM) and $C$ (context) transducers in conventional HMM-based systems
+  \item Get class posteriors directly from label counts
+  \item Advantage(s) at comparable accuracy
+    \begin{itemize}
+    \item CTC system is much smaller and usually faster during decoding
+    \item Can use 30ms frame rate and works well with graphemic units
+    \item N.B.: some of these findings might not be due to CTC, but to LSTMs, and may be back-ported
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Research Topics}
+  \begin{itemize}
+  \item What does this mean for spoken term detection?
+    \begin{itemize}
+    \item The lack of reliable timings is a problem
+    \end{itemize}
+  \item Do end-to-end approaches work in low resource scenarios?
+    \begin{itemize}
+    \item 10s of hours of training data, rather than 1000s?
+    \end{itemize}
+  \item Can we make ASR simpler?
+  \item Can we build multi-lingual systems, use multi-task training?
+  \item Can we use this to improve phone recognition
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{New Ideas}
+  \begin{itemize}
+  \item Combine CTC and attention-based models
+    \begin{itemize}
+    \item Use CTC as a front-end to attention-based models
+    \item A la language independent feature extractors?
+    \item Makes it easier for an encoder/ decoder model to learn
+    \item Across languages?
+    \end{itemize}
+  \item Integrate non-auditory information
+    \begin{itemize}
+    \item Multimedia data is very rich, e.g.\,video
+    \item Extract objects, scenes, speaker info from the visual part
+    \item Use it to bootstrap, adapt, condition, or otherwise improve acoustic and/ or language models
+    \end{itemize}
+  \item Go beyond the speech-to-text paradigm
+    \begin{itemize}
+    \item Maybe a verbatim transcription is not always what we want
+    \item Combine different information sources intelligently to give us audio-to-meaning in a new domain or language
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
 
 \section{Hands-On with Virtual Machines}
 
