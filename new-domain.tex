@@ -36,7 +36,7 @@
 \begin{itemize}
   \item Different microphone.
   \item Microphone placement.
-  \item Location charcateristics - Reverberation effect
+  \item Location characteristics - Reverberation effect
 \end{itemize}
 \item Speaker characteristics vary.
 \begin{itemize}
@@ -207,7 +207,7 @@ $C_y[k]$ = $C_x[k] + C_h$
 \[ \hat{O}_t = O_t-\bar{O} \]
 
 \item When the speech signal is distorted with additive noise,  $y[n] = x[n] + q[n]$, uncorrelated with the speech signal, its effect can be mitigated by \alert{subtracting the estimate of the noise} from the signal.
-Using a voice activity detector, the noise power spectral estimate is obtained as \alert{mean of the power spectrum in the non-speech region} and substracted.
+Using a voice activity detector, the noise power spectral estimate is obtained as \alert{mean of the power spectrum in the non-speech region} and subtracted.
        \begin{center}
                 $|\hat{X}_k(\omega)|^2 = |Y_k(\omega)|^2 - |\hat{Q}(\omega)|^2$
         \end{center}
@@ -215,7 +215,7 @@ Using a voice activity detector, the noise power spectral estimate is obtained a
 \end{frame}
 
 \begin{frame}{Robust Features (contd.)}
-Reveberant speech is also modeled as a long-term convolution effect:
+Reverberant speech is also modeled as a long-term convolution effect:
         \begin{center}
                 $Y_k(\omega)$ = $X_k(\omega)R(\omega)$\\
                 $\log(|Y_k(\omega)|)$ = $\log(|X_k(\omega)|)+log(|R(\omega)|)$
@@ -271,7 +271,7 @@ signal type (e.g. speech. music, noise, silence), and spoken content.
 
 Segmentation and Clustering
 \begin{itemize}
-\item {\color{red} Segmentation:} Partitioning of the audio into homogenous areas, ideally we should have one speaker/condition per segment.
+\item {\color{red} Segmentation:} Partitioning of the audio into homogeneous areas, ideally we should have one speaker/condition per segment.
 \item {\color{red} Clustering:} Locating speakers and conditions involves the clustering of these segments into similar speakers/conditions.
 \end{itemize}
 \end{frame}
@@ -282,13 +282,13 @@ The performance of an ASR system is affected by:
 \item Segmentation affects speech recognition performance: speaker adaptation and speaker clustering assume one speaker per segment
 \item Language model assumes sentence boundaries at the end of segments
 \item Non-speech regions in the segment are often filled with noise and cause insertion errors
-\item Overlapping speech is not recognized correctly, causing errors in the sorrounding regions
+\item Overlapping speech is not recognized correctly, causing errors in the surrounding regions
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Segmenting the audio stream}
   
- Hypothesise segment boundaries:
+ Hypothesize segment boundaries:
  
 \begin{itemize}
   \item  Input stream is modeled as Gaussian process in the cepstral domain.
@@ -454,8 +454,8 @@ development data}.
 \end{itemize}
 \item Techniques used by various sites:
 \begin{itemize}
-\item Data augmentation - Add up to 3000 hours of artifically created noisy reverberant speech
-\item Neural network based speech enchancement - Train a denoising autoencoder to denoise speech signals
+\item Data augmentation - Add up to 3000 hours of artificially created noisy reverberant speech
+\item Neural network based speech enhancement - Train a denoising autoencoder to denoise speech signals
 \item Robust Features and Feature adaptation - Robust features that compensate for artifacts
 \item Robust acoustic models - models that use large context
 \item Multiple systems and system combination - improvements of up to 15\% relative.
@@ -498,7 +498,7 @@ ASR systems are required to address a broad set of applications:
  \item  {\color{red}Chit Chat:} What are you doing? Are you a smart robot?
  \item  {\color{red}Question Answering:}What is the prognosis for Wernicke-Korsakoff Syndrome? What does Spondylolisthesis cause?
  \item  {\color{red} Analytics:} Call center customer support analysis for upselling, virtual agent, emotion analysis, etc.
- \item {\color{red}Transcription:} Broadast news and sports captioning, podcast and youtube transcriptions which address a wide variety of topics
+ \item {\color{red}Transcription:} Broadcast news and sports captioning, podcast and YouTube transcriptions which address a wide variety of topics
  \end{itemize}
 
 \end{frame}
@@ -620,9 +620,9 @@ Solution is \ldots
 \begin{frame}{What problem does a Domain Adapted LM solve?}{Examples}
 
 \begin{itemize}
-\item {\color{green} REF:  if i have had an {\color{purple} mrsa infection} or been told that i carry {\color{purple} mrsa} *  am i at high risk for developing  *  if i get seasonal influenza}
+\item {\color{green} REF:  if i have had an {\color{purple} MRSA infection} or been told that i carry {\color{purple} MRSA} *  am i at high risk for developing  *  if i get seasonal influenza}
 \item {\color{red} Base LM: if i have had an {\color{purple} IMMERSING FICTION }  or been told that i carry {\color{purple} IN MARSEILLE} I  am i at high risk for developing IT  if i get seasonal influenza}
-\item {\color{blue} Dmain Adapted LM::  if i have had an {\color{purple} mrsa infection} or been told that i carry {\color{purple} mrsa} I am i at high risk for developing IS  if i get seasonal influenza }
+\item {\color{blue} Domain Adapted LM::  if i have had an {\color{purple} MRSA infection} or been told that i carry {\color{purple} MRSA} I am i at high risk for developing IS  if i get seasonal influenza }
 \end{itemize}
 \end{frame}
 
