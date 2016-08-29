@@ -446,19 +446,19 @@ Useful for both \alert{speaker and domain adaptation}
 {ASR in unseen domains - the ASPIRE challenge}
 
 \begin{itemize}
-\item Construct automatic speech recognition systems that
-are robust to a variety of acoustic environments and recording
-scenarios \alert{without having access to matched training and
+\item Construct robust automatic speech recognition systems that \alert{without having access to matched training and
 development data}.
+\begin{itemize}
 \item \alert{Training set}  - the Fisher conversational telephone training corpus (2,000 hours of transcribed telephone speech).
 \item \alert{Test set} - Microphone speech recorded in noisy reverberant environments.
+\end{itemize}
 \item Techniques used by various sites:
 \begin{itemize}
 \item Data augmentation - Add up to 3000 hours of artifically created noisy reverberant speech
 \item Neural network based speech enchancement - Train a denoising autoencoder to denoise speech signals
 \item Robust Features and Feature adaptation - Robust features that compensate for artifacts
 \item Robust acoustic models - models that use large context
-\item Multiple systems and system combination yielding improvements of up to 15\% relative.
+\item Multiple systems and system combination - improvements of up to 15\% relative.
 \end{itemize}
 \end{itemize}
 \end{frame}
@@ -486,7 +486,7 @@ development data}.
 
 \begin{frame} {Language models for New Domains}{Does one size fit all?}
   \begin{center}
-    \includegraphics[width=72mm]{figures/onesize.pdf}
+    \includegraphics[width=77mm]{figures/onesize.pdf}
   \end{center}
 \end{frame}
 
@@ -503,11 +503,8 @@ ASR systems are required to address a broad set of applications:
 
 \end{frame}
 
-
-\begin{frame} {Language models for New Domains}{Recap:Component blocks of ASR}
-  \begin{center}
-    \includegraphics[scale=0.25]{figures/asrblock.pdf}
-  \end{center}
+\begin{frame}{Language models for New Domains}{Recap:Component blocks of ASR}
+\includegraphics[height=77mm]{figures/ASR9}
 \end{frame}
 
 \begin{frame} {Language models in ASR}{Recap:Probabilistic Model for Speech Recognition}
