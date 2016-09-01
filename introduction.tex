@@ -42,6 +42,9 @@
      \vspace{1cm}
      \includegraphics[height=30mm]{figures/startrek_comp}
   \end{columns}
+\begin{center}
+\tiny{Adapted from \cite{UNV}}
+\end{center}
 \end{frame}
 
 \begin{frame}{Speech based user interfaces}{}
@@ -56,6 +59,9 @@
      \vspace{1.2cm}
      \includegraphics[height=40mm]{figures/startrek_manual}
   \end{columns}
+\begin{center}
+\tiny{Adapted from \cite{STR}}
+\end{center}
 \end{frame}
 
 % Various applications that can be built on the speech signal
@@ -83,11 +89,17 @@
 
 \end{tabular}
 }
+\begin{center}
+\tiny{Adapted from \cite{SVR}}
+\end{center}
 \end{frame}
 
 % Show the progress in building technologies across languages
 \begin{frame}{In how many different ways can we speak?}
 \includegraphics[height=48mm]{figures/languages}
+\begin{center}
+\tiny{Adapted from \cite{ETH}}
+\end{center}
 \end{frame}
 
 % Show the progress in building technologies across languages
@@ -99,6 +111,9 @@
      \column{2.8in}
      \includegraphics[height=68mm]{figures/lan_tech}
   \end{columns}
+\begin{center}
+\tiny{Adapted from \cite{SRI,GVS}}
+\end{center}
 \end{frame}
 
 % Show the progress in building technologies across languages
@@ -151,8 +166,8 @@ possibility to share resources across languages
 \begin{enumerate}
 \item Automatic speech recognition is the process of \alert{transcribing speech into text}
 \item Speech recognition systems solve this task in a probabilistic setting using five key
-components: \alert{a feature extraction module, an acoustic model, a pronunciation dictionary, a language model
-and a search module.}
+components \cite{FJ1997,steve1996large}: \alert{a feature extraction module, an acoustic model, a pronunciation dictionary, a language model
+and a search module}.
 \end{enumerate}
 \end{frame}
 
@@ -206,7 +221,7 @@ and a search module.}
 \item Presence of \alert{noise and other distortions}
 \item \alert{Size and dimensionality} of the data
 \end{enumerate}
-\item Need to transform the signal into lower dimensional descriptors called \alert{features}.
+\item Need to transform the signal into lower dimensional descriptors called \alert{features} \cite{li2014overview,o2013acoustic}.
 \end{enumerate}
 \end{frame}
 
@@ -242,7 +257,7 @@ and a search module.}
 \begin{enumerate}
 \item The \alert{goal of the AM} is to provide a method of calculating the likelihood
 of any feature vector sequence $Y$ given a word $w$
-\item \alert{The basic \alert{sequence} model} -
+\item \alert{The basic \alert{sequence} model} \cite{gales2008application,rabiner1986introduction}-
 \begin{enumerate}
 \item To estimate this likelihood word sequences are decomposed into basic sound units
 called phones
@@ -252,7 +267,7 @@ a number of states connected with arcs in a left-right topology.
 \item HMM algorithms: Likelihood computation (forward algorithm), most probable state sequence (Viterbi algorithm), 
 estimating parameters (EM algorithm)
 \end{enumerate}
-\item \alert{Improvements to the basic model} -
+\item \alert{Improvements to the basic model} \cite{bahl1986maximum,young1994state,povey2001improved}-
 \begin{enumerate}
 \item Modeling - Context-dependent models, Tied mixture models, state clustering, phonetic decision trees
 \item Training criteria - MLE, MMIE, MPE for training HMM-GMM based systems
@@ -274,7 +289,7 @@ estimating parameters (EM algorithm)
 
 \begin{frame}{Acoustic Modeling - Current Techniques}
 \begin{enumerate}
-\item The \alert{basic} model -
+\item The \alert{basic} model \cite{morgan1995continuous}-
 \begin{enumerate}
 \item Train neural networks to estimate posterior probabilities of speech classes
 \item Instead of GMM based likelihood estimates use scaled likelihoods based
@@ -282,7 +297,7 @@ off neural network posterior probabilities
 \item Trained to discriminate between output classes with a cross-entropy
 based training criteria.
 \end{enumerate}
-\item \alert{Improvements to the basic model} -
+\item \alert{Improvements to the basic model} \cite{hinton2012deep}-
 \begin{enumerate}
 \item Deeper networks, output states corresponding to context dependent states, 
 \item Various configurations - CNNs, RNNs, LSTMs
@@ -309,7 +324,7 @@ sound acoustically similar - "recognize speech" vs. "wreck a nice beach"
 %Ngrams
 %Class based models
 \begin{enumerate}
-\item The \alert{basic} model -
+\item The \alert{basic} model \cite{jelinek1991up}-
 	\begin{enumerate}
 	\item Simple \alert{n-grams} based language models
 	\item Probability of a word depends on the word and preceding n-1 words
@@ -321,7 +336,7 @@ sound acoustically similar - "recognize speech" vs. "wreck a nice beach"
         \begin{center}$P(w_i|w_j)$ = $\frac{c(w_j,w_i)}{c(w_j)}$\end{center}
 	\item Unseen ngrams accounted for using smoothing/discounting/backoff
 	\end{enumerate}
-\item \alert{Improvements to the basic model} -
+\item \alert{Improvements to the basic model} \cite{chen2009shrinking}-
 	\begin{enumerate}
 	\item Class-based n-grams, maximum entropy language models
 	\end{enumerate}
@@ -330,7 +345,7 @@ sound acoustically similar - "recognize speech" vs. "wreck a nice beach"
 
 \begin{frame}{Language Modeling - Current Techniques}
 \begin{center}
-Neural network based language models \\
+Neural network based language models \cite{bengio2003neural,mikolov2011strategies}\\
 
 \includegraphics[height=40mm]{figures/lm-mlp}
 \end{center}
@@ -359,7 +374,7 @@ vases(03)                      V EY S IH Z \\
 
 \begin{frame}{Pronunciation Lexicon}
 \begin{enumerate}
-\item The \alert{basic} model -
+\item The \alert{basic} model \cite{fosler2003tutorial,bisani2008joint,hain2002implicit}-
 \begin{enumerate}
 \item Dictionary created by human experts
 \item Grapheme-to-phoneme models - learn pronunciations of words based on initial dictionary
@@ -387,7 +402,7 @@ search for optimal exhaustive search
 \item Cross-word triphones and word boundaries
 \item Huge search spaces with long-span language models
 \end{enumerate}
-\item Improved techniques for search -
+\item Improved techniques for search \cite{saon2005anatomy,allauzen2004generalized,rybach2013lexical}-
 \begin{enumerate}
 \item Beam pruning
 \item Multipass search
