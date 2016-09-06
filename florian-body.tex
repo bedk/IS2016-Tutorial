@@ -29,9 +29,8 @@
   \end{center}
 \end{frame}
 
-\begin{frame}{Challenges}
+\begin{frame}{Challenges}{What could be wrong?}
   \begin{itemize}
-  \item What could be wrong?
   \item We are using a solid statistical framework
   \item We know how to extract ``features''
   \item We know how to learn models
@@ -40,7 +39,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Really? Let's think about this some more!}
+\begin{frame}{Really}{Let's think about this some more!}
   \begin{itemize}
     \item Given: an observation (ADC, FFT, ...)\\
       $\boldsymbol{X} = \boldsymbol{x}_1, \boldsymbol{x}_2, ..., \boldsymbol{x}_T$
@@ -70,11 +69,11 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Fundamentals revisited}
+\begin{frame}{Fundamentals Revisited}
   \begin{itemize}
   \item If we are optimizing for $P(W|\boldsymbol{X})$,
-    we are optimizing for the \textit{sentence} error rate, $\langle P(W|\boldsymbol{X}) \rangle$
-  \item But we want $P(\langle w_i \rangle|\boldsymbol{X})$ for $W=w_1,w_2, ..., w_m$ (for one sentence)
+    we are optimizing for the \textit{sentence} error rate: $\langle P(W|\boldsymbol{X}) \rangle$ with $W \in \{W\}$
+  \item But we want $P(\langle w_i \rangle|\boldsymbol{X})$ for $w_i \in w_1,w_2, ..., w_m \equiv \{W\}$ (for one sentence)
   \item Clearly, this is not the same thing!
   \item However, in practice, it is not complete uncorrelated either
     \begin{itemize}
@@ -84,7 +83,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{The speech recognition conundrum}
+\begin{frame}{The Speech Recognition Conundrum}
   \begin{itemize}
   \item We want to optimize word error rate (or whatever)\\
     \vspace{1cm}
@@ -95,7 +94,7 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{The speech recognition conundrum - It's ugly!}
+\begin{frame}{The Speech Recognition Conundrum}{It's Ugly!}
   \begin{center}
     \includegraphics[height=65mm]{figures/medusa}
   \end{center}
@@ -125,14 +124,14 @@
   \end{center}
   \begin{itemize}
   \item A single HMM state has an exponentially decreasing duration distribution.
-  \item A typical tri-state topology (\textsc{-b -m -e} states) at least has a ``maximum'' peak for
-    the expected duration of the whole phone
+%  \item A typical tri-state topology (\textsc{-b -m -e} states) at least has a ``maximum'' peak for
+%    the expected duration of the whole phone
   \end{itemize}
 \end{frame}
 
 \begin{frame}{Duration Modelling with HMMs}
   \begin{itemize}
-  \item A tri-state topology (-b -m -e states) at least has a ``maximum'' peak for
+  \item A tri-state topology (\textsc{-b -m -e} states) at least has a ``maximum'' peak for
     the expected duration of the whole phone
   \item It is still quite arbitrary - we have plosives, short vowels, long vowels, ...\\
     \hspace{1cm}
@@ -148,17 +147,21 @@
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Ok, so what do we do?}
+\begin{frame}{Ok, so What Do We Do?}
   \begin{itemize}
   \item There are a few more problems (e.g., hyper-articulation)
+    \begin{itemize}
+    \item Try talking ``extra clearly'' to a dialogue system
+    \item It won't get you anywhere ...
+    \end{itemize}
   \item Speech recognition ``works''
   \item Airplanes don't fly the same way birds fly
-  \item We may be fine
+  \item We may be fine (if we adapt)
   \item Still, what could we do?
   \end{itemize}
 \end{frame}
 
-\begin{frame}{Let's take a step back}
+\begin{frame}{Let's Take a Step Back}
   \begin{itemize}
   \item What are we really trying to achieve?
   \item We want to translate a sequence of observations to a sequence of words
@@ -183,7 +186,7 @@
 \begin{frame}{End-to-end models with attention}
   \begin{itemize}
   \item ``Sequences'' in speech are much longer than in text (even at 30Hz)
-  \item The ``encoder'''s task is therefore much harder
+  \item The ``encoder's'' task is therefore much harder
   \item However there is no re-ordering going on (unlike in Machine Translation)
   \item So, ``attention'' mechanisms are well suited to recover from decoding errors
     \begin{itemize}
@@ -203,7 +206,7 @@
   \begin{itemize}
   \item According to ``Listen, Attend and Spell'' (\cite{las}):
     \begin{itemize}
-    \item Google says they're close on their task (10.3\% vs.\ 8.0\%)
+    \item Google says they're close on in-house task (10.3\% vs.\ 8.0\%)
     \item 1000s of hours of training data
     \item ``Insane'' amount of computation [personal communication]
     \end{itemize}
@@ -366,11 +369,20 @@
     \end{itemize}
   \item Do end-to-end approaches work in low resource scenarios?
     \begin{itemize}
-    \item 10s of hours of training data, rather than 1000s?
+    \item 10s of hours of training data, rather than 1000s? But seems ok!
     \end{itemize}
   \item Can we make ASR simpler?
+    \begin{itemize}
+    \item Yes!!! Very much so.
+    \end{itemize}
   \item Can we build multi-lingual systems, use multi-task training?
+    \begin{itemize}
+    \item Yes, you can. In your tutorial VM!
+    \end{itemize}
   \item Can we use this to improve phone recognition
+    \begin{itemize}
+    \item Yes!
+    \end{itemize}
   \end{itemize}
 \end{frame}
 
