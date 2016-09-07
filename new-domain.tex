@@ -325,7 +325,7 @@ One way to achieve robustness is to take a fully trained HMM
 system, a small amount of data from a new domain, and combine the
 information from the old and new systems together. 
 
-In Maximum A Posterior Estimation we assume there is some prior
+In Maximum A Posterior Estimation~\cite{lee1996bayesian} we assume there is some prior
 probability distribution on $\theta$, $p(\theta)$ (the ASR system) and we try to
 pick $\hat{\theta}$ to maximize the a posteriori probability of $\theta$ given the
 observations (domain specific data):
@@ -355,7 +355,7 @@ $\tau$ is a parameter that can be tuned to optimize performance on different tes
 
 \begin{frame}{Maximum Likelihood Linear Regression - Basic Idea}{MLLR}
 
-An alternate strategy is the popular MLLR adaptation scheme. In MAP, the different HMM Gaussians are free to move in any direction. \\
+An alternate strategy is the popular MLLR adaptation scheme~\cite{leggetter1995maximum}. In MAP, the different HMM Gaussians are free to move in any direction. \\
 In Maximum Likelihood Linear Regression the means of the Gaussians are constrained to only move according to an affine transformation $Ax+b$.
 
 \end{frame}
@@ -392,16 +392,16 @@ Stay tuned \ldots
 \begin{frame} {Acoustic Model Adaptation with Neural Networks}
 \alert{Adaptation of neural network based acoustic models} - involves adapting a large number of parameters with a small amount of adaptation data. Recent advances include:
         \begin{itemize}
-        \item \alert{Fine-tuning} - additional epochs of training of some or all layers of the network with the adaptation data alone (similar to new languages)
-        \item \alert{Addition of additional layer} to perform a feature-space-like adaptation
-        \item Use of a \alert{regularizer} to control the extent by which the weights move from the baseline model when trained with the in-domain audio
-        \item Rely on \alert{feature adaptation} (fMLLR/ivectors) to serve as medium of adaptation and subsequently become the input to the neural network
+        \item \alert{Fine-tuning} - additional epochs of training of some or all layers of the network with the adaptation data alone (similar to new languages)~\cite{abdel2013fast, sainath2015deep}
+        \item \alert{Addition of additional layer} to perform a feature-space-like adaptation~\cite{abdel2013fast}
+        \item Use of a \alert{regularizer} to control the extent by which the weights move from the baseline model when trained with the in-domain audio~\cite{hsiao2015unsupervised}
+        \item Rely on \alert{feature adaptation} (fMLLR/ivectors) to serve as medium of adaptation and subsequently become the input to the neural network~\cite{sainath2013improvements, saon2013speaker}
         \end{itemize}
 \end{frame}
 
 \begin{frame} {Acoustic Model Adaptation with Neural Networks}
 
-\alert{Weight decay based adaptation}: Similar to MAP adaptation, adapted network's weight updates are arrived at from using a  weighted combination of the updates from adaptation data and the baseline model
+\alert{Weight decay based adaptation}: Similar to MAP adaptation, adapted network's weight updates are arrived at from using a  weighted combination of the updates from adaptation data and the baseline model~\cite{liao2013speaker}
         \begin{center}
         $\Delta w_t = -\alpha{\nabla}_wE(w_t) - \beta(w_{t-1} - w_0)$ \\
         \vspace{1mm}
@@ -446,8 +446,8 @@ Useful for both \alert{speaker and domain adaptation}
 {ASR in unseen domains - the ASPIRE challenge}
 
 \begin{itemize}
-\item Construct robust automatic speech recognition systems that \alert{without having access to matched training and
-development data}.
+\item Construct robust automatic speech recognition systems that \alert{have no access to matched training and
+development data}~\cite{harper2015automatic}.
 \begin{itemize}
 \item \alert{Training set}  - the Fisher conversational telephone training corpus (2,000 hours of transcribed telephone speech).
 \item \alert{Test set} - Microphone speech recorded in noisy reverberant environments.
@@ -466,7 +466,7 @@ development data}.
 \begin{frame}{ASR on unseen domains - the Aurora-4 challenge}
 
 \begin{enumerate}
-\item Aurora4 - A Medium vocabulary task, based on the Wall Street Journal corpus
+\item Aurora4 - A Medium vocabulary task, based on the Wall Street Journal corpus~\cite{hirsch2000aurora, balakrishnan2004retrospective}
 \begin{enumerate}
 \item Data collected from a primary Sennheiser microphone, and 18 other secondary microphones.
 \item Six different noise types - airport, babble, car, restaurant, street traffic and train station, at 10-20 db SNR.
@@ -479,8 +479,9 @@ development data}.
 \item Joint training Neural network based frontend and backend acoustic models. 
 \item Varying network topologies, such as the use of a linear activation layer to capture the dynamics of acoustic features for backend NN.
 \end{enumerate}
-\item State-of-the-art systems yield gains of up to 20\% relative on unseen microphone and noise conditions.
+\item State-of-the-art systems yield gains of up to 20\% relative on unseen microphone and noise conditions\footnote{Several publications continue to appear in speech conferences on this task, most recently~\cite{li2016exploring}}
 \end{enumerate}
+
 \end{frame}
 
 
@@ -670,6 +671,11 @@ Is there something cheaper that predicts WER well?
 \end{enumerate}
 \end{frame}
 
+\begin{frame} {Impact of Acoustic and Language Model Adapation on unseen call center data} {An example}
+ \begin{center}
+    \includegraphics[height=65mm,width=90mm]{figures/AdaptationPerformance.pdf}
+  \end{center}
+\end{frame}
 %\begin{frame} {Impact of Acoustic and Language Model Adapation on unseen call center data}
 %{Weight Decay Adaptation and n-grams}
 %Will add graph
