@@ -422,43 +422,104 @@
   \frametitle{Practicalities}
   \begin{itemize}
   \item We want to give you hands-on experience with building ASR systems
-  \item You will be able to train a system on a Babel language (most likely 201 Haitian)
+  \item Immediately start training a system on IARPA-babel201b-v0.2b (Haitian Creole)
   \item You can then experiment with other Babel languages, or port the system to other domains
-  \item To facilitate experimentation, we will distribute a Virtual Machine (VM)
-  \item {\color{Maroon}Read on to see how you can prepare}
+  \item To facilitate experimentation, we will use a Virtual Machine, and/ or an AMI
+  \item {\color{Maroon}Read on to see how you can prepare (or listen ...)}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Virtual Machines and Tools}
+  \frametitle{Virtual Machines (VMs) and other Tools}
   \begin{itemize}
   \item Think of a VM as a ``virtual'' computer, in our case running Linux
   \item VMs allow sharing reproducible experiments easily
   \item \url{https://github.com/srvk}, \url{http://speechkitchen.org} as repositories
-  \item \url{https://www.vagrantup.com/} to build VMs
+  \item \url{https://www.vagrantup.com/} to build VMs and AMIs (Amazon Machine Images)
   \item \url{https://www.virtualbox.org/} to run VMs (along with \url{https://aws.amazon.com/})
   \item An ``image'' is a computer when it is turned off, it becomes an ``instance'' when you turn it on
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Exercises}
+  \frametitle{The Speech Recognition Virtual Kitchen}
   \begin{itemize}
-  \item We will share a Vagrantfile, plus an image on AWS (most likely), and/ or a Virtualbox OVA (less likely)
-  \item Your best bet is to run the exercise on AWS
+  \item Please visit \url{https://github.com/srvk/aws-sandbox}
+  \item There you can find a \textsc{Vagrantfile}, to build a VM (e.g. an OVA)
+  \item But we recommend running things on AWS, with an \textsc{AMI} that we provide there
   \item So, you may want to sign up for an account first (\url{https://aws.amazon.com/getting-started/})
   \item Familiarize yourself with how to start a Linux VM on ``EC2'' using a pre-configured Amazon Machine Image (AMI)
-  \item Training a DNN-based recognizer on a GPU will cost some money, but the cost should not be dramatic
+  \item Training a DNN-based recognizer on a GPU will cost some money, \textasciitilde \$25 (you may have credits)
   \item Once you reproduced the basics, you can continue on AWS, or you can migrate to your own infrastructure
   \end{itemize}
 \end{frame}
 
 \begin{frame}
   \frametitle{Eesen}
+  \begin{columns}[c]
+    \column{52mm}
+    \begin{itemize}
+    \item We will use the ``Eesen'' toolkit (\url{https://github.com/srvk/eesen}) for CTC-based end-to-end speech recognition
+    \item It borrows from Kaldi (\url{http://kaldi-asr.org/}), but is a bit smaller and easier to handle
+    \item We also installed KenLM (\url{https://kheafield.com/code/kenlm/}), SoX (\url{http://sox.sourceforge.net}), and a few other tools
+    \end{itemize}
+    \column{58mm}
+    \includegraphics[width=58mm]{figures/detox}    
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exercise}{Go to \url{https://github.com/srvk/aws-sandbox}}
   \begin{itemize}
-  \item We will use the ``Eesen'' toolkit (\url{https://github.com/srvk/eesen}) for end-to-end speech recognition
-  \item It is based on Kaldi (\url{http://kaldi-asr.org/}), but a bit smaller and easier to handle
-  \item {\color{Maroon} More details to follow}
+  \item Check out the \texttt{master} branch, look for a \texttt{is2016} tag, read and understand
+  \item Sign the data use agreement at the end of the tutorial
+  \item Send your AWS Account Id (a 12-digit number) to \href{mailto:fmetze@cs.cmu.edu}{fmetze@cs.cmu.edu}
+    \begin{itemize}
+    \item IARPA and LDC make the Babel Haitian Creole data available to participants of this tutorial
+    \item That's why we need to control access
+    \end{itemize}
+  \item Start up the provided AMI in the US-East zone on a GPU node (g2.2xlarge)
+  \item Or build the VM/ AMI yourself, adding your own data
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Exercise}{Go to \url{https://github.com/srvk/aws-sandbox}}
+  \begin{itemize}
+  \item Log in as \texttt{ec2-user}, change to \texttt{\textasciitilde/babel-exps/egs/asr/s5c/201-haitian-flp}
+  \item Run the following commands:
+    \begin{enumerate}
+    \item \texttt{nohup ./run-1-main.sh    >\& log/run.log \&}
+      \begin{itemize}
+      \item Wait very few hours
+      \end{itemize}
+    \item \texttt{nohup ./train-7-gpu.sh   >\& log/train.log \&}
+      \begin{itemize}
+      \item Wait a day and a half
+      \end{itemize}
+    \item \texttt{nohup ./test-7-v1\_x3.sh >\& log/test.log \&}
+      \begin{itemize}
+      \item Have coffee
+      \end{itemize}
+    \end{enumerate}
+  \item ... making sure each terminates before running the next one
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Ideas for own Experiments}
+  \begin{itemize}
+  \item Train systems in other languages (get them from LDC for \$25)
+  \item Train multi-lingual systems (scripts provided)
+  \item Improve, adapt, ... any of the systems
+  \item ...
+  \item Come to the SRVK Special Session
+    \begin{itemize}
+    \item SHARING RESEARCH AND EDUCATION RESOURCES FOR UNDERSTANDING SPEECH PROCESSING
+    \item Saturday, Sep 10; 13:30 - 15:30; Grand Ballroom BC
+    \item We'll discuss results and experiences in the coffee break after the session!
+    \end{itemize}
+  \item Connect with us on Github
   \end{itemize}
 \end{frame}
 
