@@ -14,10 +14,28 @@
 \end{frame}
 
 \begin{frame}{The IARPA Babel Program}{}
-  \Large{``\ldots to \alert{rapidly develop} speech recognition
+  \Large{``\ldots to rapidly develop speech recognition
     capability for keyword search in a previously unstudied
     language, working with speech recorded in a variety of
     conditions with limited amounts of transcription.''}\par
+\end{frame}
+
+\begin{frame}{Babel Languages}{}
+  \begin{center}
+  \begin{tabular}{@{}llll@{}} \toprule
+    \multicolumn{1}{c}{\bf Period 1} & \multicolumn{1}{c}{\bf Period 2} & \multicolumn{1}{c}{\bf Period 3} & \multicolumn{1}{c}{\bf Period 4} \\ \midrule
+    Cantonese  & Assamese       & Kurmanji Kurdish & {\color{Maroon}Pashto} \\
+    {\color{Maroon}Pashto}     & Bengali        & Tok Pisin        & Guaran\'{i} \\
+    Turkish    & Haitian Creole & Cebuano          & Igbo \\
+    Tagalog    & Lao            & Kazakh           & Amharic \\
+    {\color{DarkerBlue}Vietnamese} & Zulu           & Telugu           & Mongolian \\
+               & {\color{DarkerBlue}Tamil}          & Lithuanian       & Javanese \\
+               &                & {\color{DarkerBlue}Swahili}          & Dholuo \\
+               &                &                  & {\color{DarkerBlue}Georgian} \\ \bottomrule
+  \end{tabular}
+  \end{center}
+  \vfill
+    \nb{These will be available from the LDC at \$US 25.00 per language for non-members.}
 \end{frame}
 
 \begin{frame}{Rapid Development}{Time allowed for surprise language model building}
@@ -31,38 +49,6 @@
   \end{tabular}
 \end{frame}
 
-\begin{frame}{The IARPA Babel Program}{}
-  \Large{``\ldots to rapidly develop speech recognition
-    capability for keyword search in a \alert{previously unstudied
-      language}, working with speech recorded in a variety of
-    conditions with limited amounts of transcription.''}\par
-\end{frame}
-
-\begin{frame}{Babel Languages}{}
-  \begin{center}
-  \begin{tabular}{@{}llll@{}} \toprule
-    \multicolumn{1}{c}{\bf Period 1} & \multicolumn{1}{c}{\bf Period 2} & \multicolumn{1}{c}{\bf Period 3} & \multicolumn{1}{c}{\bf Period 4} \\ \midrule
-    Cantonese  & Assamese       & Kurmanji Kurdish & Pashto \\
-    Pashto     & Bengali        & Tok Pisin        & Guaran\'{i} \\
-    Turkish    & Haitian Creole & Cebuano          & Igbo \\
-    Tagalog    & Lao            & Kazakh           & Amharic \\
-    Vietnamese & Zulu           & Telugu           & Mongolian \\
-               & Tamil          & Lithuanian       & Javanese \\
-               &                & Swahili          & Dholuo \\
-               &                &                  & Georgian \\ \bottomrule
-  \end{tabular}
-  \end{center}
-  \vfill
-  \nb{These will be available from the LDC at \$US 25.00 per language for non-members.}
-\end{frame}
-
-\begin{frame}{The IARPA Babel Program}{}
-  \Large{``\ldots to rapidly develop speech recognition
-    capability for keyword search in a previously unstudied
-    language, working with speech recorded in a variety of
-    conditions with \alert{limited amounts of transcription}.''}\par
-\end{frame}
-
 \begin{frame}{Limited resources}{Hours of transcribed training data}
   \settowidth{\colA}{100}
   \begin{center}
@@ -74,16 +60,9 @@
       4 & \aln{\colA}{r}{40} \\ \bottomrule
     \end{tabular}
   \end{center}
-  \vfill
-  \nb{In Periods 3 and 4, no phonetic lexicons.}
 \end{frame}
 
-\begin{frame}{The IARPA Babel Program}{}
-  \Large{``\ldots to rapidly develop speech recognition
-    capability for \alert{keyword search} in a previously unstudied
-    language, working with speech recorded in a variety of
-    conditions with limited amounts of transcription.''}\par
-\end{frame}
+
 
 \begin{frame}{What is keyword search, and why focus on it?}{}
   {\bf Detection task}: given
@@ -389,7 +368,7 @@
   \begin{description}
   \item[ASR]
     \begin{itemize}
-    \item Recomposing morphs into words is challenging.
+    \item Need to map from morph sequences back to word sequences using a WFST.
     \end{itemize}
   \item[KWS]
     \begin{itemize}
